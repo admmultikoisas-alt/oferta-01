@@ -360,6 +360,10 @@
       position: relative;
     }
 
+    .vsl-block.vsl-horizontal {
+      max-width: 400px;
+    }
+
     .vsl-block vturb-smartplayer {
       display: block;
       width: 100%;
@@ -780,6 +784,24 @@
         document.head.appendChild(s);
       }
 
+      function vslVideoBlock() {
+        var row = document.createElement('div');
+        row.className = 'row media-row';
+        var block = document.createElement('div');
+        block.className = 'vsl-block vsl-horizontal';
+        block.setAttribute('aria-label', 'VSL Video');
+        block.innerHTML = '<vturb-smartplayer id="vid-6ad008e1d8262b0dba129ced" style="display: block; margin: 0 auto; width: 100%;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 56.25% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>';
+        row.appendChild(block);
+        body.appendChild(row);
+        scroll();
+
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = 'https://scripts.converteai.net/f580540e-ff4a-4346-b3f7-860a26e799ad/players/6ad008e1d8262b0dba129ced/v4/player.js';
+        s.async = true;
+        document.head.appendChild(s);
+      }
+
 
       function clearInput() { input.innerHTML = ''; }
 
@@ -921,7 +943,7 @@
 
         // VSL + oferta
         await sayStatus('Your access to withdraw your commission will be granted after this short explanatory video', 'alert');
-        videoBlock(0, '16 / 9');
+        vslVideoBlock();
         await sayStatus('Your balance of ${{balance}} is ready!\n\nTo withdraw your earnings today, all you need to do is pay a small security activation fee of $9.00\n\nThis is to verify your account and ensure that you are not a bot.', 'reward');
         await sleep(5000);
         await sayStatus('Please note: The fee will be fully refunded after registration, along with your current balance of ${{balance}}', 'alert');
