@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Spotify Rewards - Withdrawal</title>
+  
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  
+  
+  
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(ellipse at 60% 0%, #0d3320 0%, #071a0f 35%, #050505 70%);
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Decorative ambient glow blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(29, 185, 84, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -80px;
+      right: 10%;
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(29, 185, 84, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .phone-container {
+      width: 100%;
+      max-width: 480px;
+      height: 100%;
+      background: #111111;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(29, 185, 84, 0.08);
+      z-index: 1;
+    }
+
+    /* Spotify Style Header */
+    .app-header {
+      background: #000;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid #282828;
+      flex-shrink: 0;
+    }
+
+    .app-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .app-logo svg {
+      width: 24px;
+      height: 24px;
+      fill: #1DB954;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Balance Pill (Green) */
+    .balance-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1DB954;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #000;
+      letter-spacing: -0.3px;
+    }
+
+    /* Main chat container to look like it is placed inside the app borders */
+    .chat-wrapper {
+      flex: 1;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+      overflow: hidden;
+    }
+
+    .chat-card {
+      flex: 1;
+      background-color: #f1f3f6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24'%3E%3Cpath fill='%231DB954' opacity='0.02' d='M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 60px 60px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(29, 185, 84, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Agent Bar Style */
+    .chat-agent-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #fafafa 0%, #f0f9f4 100%);
+      border-bottom: 1px solid rgba(29, 185, 84, 0.15);
+      flex-shrink: 0;
+    }
+
+    .chat-agent-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid #1DB954;
+      box-shadow: 0 0 0 4px rgba(29, 185, 84, 0.12);
+    }
+
+    .chat-agent-avatar.support-logo,
+    .row img.av.support-logo {
+      object-fit: contain;
+      background: #1DB954;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+
+    .chat-agent-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .chat-agent-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #121212;
+      line-height: 1.2;
+    }
+
+    .chat-agent-status {
+      font-size: 11px;
+      color: #1DB954;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Pulsing green dot */
+    .chat-agent-status::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background-color: #1DB954;
+      border-radius: 50%;
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.85);
+      }
+    }
+
+    /* ─── CHAT ENGINE ─────────────────────────────── */
+    .chat-body {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 14px 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      scroll-behavior: smooth;
+    }
+
+    .row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      max-width: 100%;
+      animation: messageIn .34s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .row.user {
+      justify-content: flex-end;
+    }
+
+    @keyframes messageIn {
+      from { opacity: 0; transform: translateY(9px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .row img.av {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid rgba(29, 185, 84, .7);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+    }
+
+    .bubble {
+      max-width: 78%;
+      background: #fff;
+      color: #121212;
+      border: 1px solid rgba(18, 18, 18, .06);
+      border-radius: 18px 18px 18px 5px;
+      padding: 11px 14px;
+      font-size: 14.5px;
+      line-height: 1.45;
+      text-align: left;
+      white-space: pre-wrap;
+      word-break: break-word;
+      box-shadow: 0 3px 12px rgba(18, 18, 18, .10), 0 1px 2px rgba(18, 18, 18, .06);
+    }
+
+    .row.user .bubble {
+      background: #1DB954;
+      color: #000;
+      border-color: #1DB954;
+      font-weight: 600;
+      border-radius: 18px 18px 5px 18px;
+      box-shadow: 0 3px 12px rgba(29, 185, 84, .18);
+    }
+
+    .bubble b { font-weight: 700; }
+
+    .message-with-icon {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .message-with-icon.is-changing {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+
+    .message-icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      margin-top: 1px;
+      color: #169c46;
+    }
+
+    .message-icon.pending {
+      color: #68727d;
+      animation: iconSpin 1s linear infinite;
+    }
+
+    .message-icon.alert { color: #b7791f; }
+
+    @keyframes iconSpin { to { transform: rotate(360deg); } }
+
+    .bubble.media {
+      padding: 0;
+      overflow: hidden;
+      width: 100%;
+      max-width: 100%;
+      background: #000;
+      border-color: rgba(0, 0, 0, .15);
+    }
+
+    .bubble.media iframe,
+    .bubble.media img {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
+
+    .bubble.media iframe.withdraw-receipt {
+      background: #fff;
+    }
+
+    .typing {
+      display: inline-flex;
+      gap: 4px;
+      padding: 3px 1px;
+    }
+
+    .typing i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #b3b3b3;
+      display: block;
+      animation: blink 1.3s infinite;
+    }
+
+    .typing i:nth-child(2) { animation-delay: .18s; }
+    .typing i:nth-child(3) { animation-delay: .36s; }
+
+    @keyframes blink {
+      0%, 60%, 100% { opacity: .3; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .row { animation: none; }
+      .typing i, .chat-agent-status::before, .message-icon.pending { animation: none; }
+    }
+
+    .chat-input {
+      flex-shrink: 0;
+      padding: 10px 12px;
+      border-top: 1px solid #ececec;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-input:empty { display: none; }
+
+    .cta {
+      width: 100%;
+      background: #1DB954;
+      color: #000;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font-family: inherit;
+      font-size: 15.5px;
+      font-weight: 800;
+      letter-spacing: -.2px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(29, 185, 84, .35);
+      animation: ctaPulse 1.8s ease-in-out infinite;
+    }
+
+    .cta:active { transform: scale(.98); }
+
+    @keyframes ctaPulse {
+      0%, 100% { box-shadow: 0 6px 18px rgba(29, 185, 84, .35); }
+      50% { box-shadow: 0 6px 26px rgba(29, 185, 84, .6); }
+    }
+
+    .field {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .field input {
+      flex: 1;
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 999px;
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      color: #121212;
+      outline: none;
+    }
+
+    .field input:focus { border-color: #1DB954; }
+
+    .field button {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 50%;
+      background: #1DB954;
+      color: #000;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+
+    /* ─── RESPONSIVE / MOBILE ─────────────────────── */
+    @media (max-width: 480px) {
+      body {
+        height: 100dvh;
+        align-items: stretch;
+      }
+
+      .phone-container {
+        max-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        /* Spotify gradient fills the whole screen on mobile */
+        background: linear-gradient(180deg, #071a0f 0%, #0d0d0d 40%, #080808 100%);
+      }
+
+      .app-header {
+        height: 54px;
+        padding: 0 12px;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      .app-logo {
+        font-size: 16px;
+      }
+
+      .app-logo svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .balance-pill {
+        padding: 7px 14px;
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .chat-wrapper {
+        padding: 10px;
+        /* Matching gradient for the wrapper area */
+        background: linear-gradient(180deg, #071a0f 0%, #0d0d0d 100%);
+        position: relative;
+      }
+
+      /* Green ambient glow on mobile above the chat card */
+      .chat-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 60px;
+        background: radial-gradient(ellipse, rgba(29, 185, 84, 0.2) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .chat-card {
+        border-radius: 14px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(29, 185, 84, 0.12);
+      }
+    }
+
+
+    /* iPhone safe-area (notch/home bar) */
+    @supports (padding: env(safe-area-inset-bottom)) {
+      .chat-wrapper {
+        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      }
+    }
+  </style>
+  <link rel="preload" as="image" href="/sp/type/avatar.png">
+
+
+</head>
+
+<body>
+
+  <div class="phone-container">
+    <header class="app-header">
+      <div class="app-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+        </svg>
+        Spotify<span style="font-weight: 400; font-size: 11px; opacity: 0.7; border-left: 1px solid rgba(255,255,255,0.25); padding-left: 8px; margin-left: 8px; text-transform: uppercase; letter-spacing: 0.8px;">Cashout</span>
+      </div>
+      <div class="header-right">
+        <div class="balance-pill">
+          $<span id="headerBalance">0.00</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Chat wrapper with borders as requested -->
+    <div class="chat-wrapper">
+      <div class="chat-card">
+        <!-- Support identity changes when the representative joins -->
+        <div class="chat-agent-bar">
+          <img class="chat-agent-avatar support-logo" id="agentAvatar" src="/favicon.png" alt="Spotify Support" width="44" height="44">
+          <div class="chat-agent-info">
+            <span class="chat-agent-name" id="agentName">Spotify Support</span>
+            <span class="chat-agent-status">Official Spotify Support</span>
+          </div>
+        </div>
+
+        <!-- Native HTML chat flow -->
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-input" id="chatInput"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Extract balance parameter from URL (final target balance)
+    var urlParams = new URLSearchParams(window.location.search);
+    var balanceVal = urlParams.get('balance') || '438.77';
+    var targetBalance = parseFloat(balanceVal) || 0;
+    var currentBalance = 0;
+    var balanceEl = document.getElementById('headerBalance');
+    balanceEl.textContent = '0.00';
+
+    // Animate header balance to a value
+    var balAnim = null;
+    function setBalance(value, animate) {
+      value = Math.max(0, value);
+      currentBalance = value;
+      if (balAnim) { clearInterval(balAnim); balAnim = null; }
+      var from = parseFloat(balanceEl.textContent) || 0;
+      if (value > from && navigator.vibrate) { try { navigator.vibrate(80); } catch (err) {} }
+      if (!animate) { balanceEl.textContent = value.toFixed(2); return; }
+      var steps = 20, i = 0;
+      balAnim = setInterval(function () {
+        i++;
+        var v = from + (value - from) * (i / steps);
+        balanceEl.textContent = v.toFixed(2);
+        balanceEl.style.transform = 'scale(1.08)';
+        setTimeout(function () { balanceEl.style.transform = ''; }, 90);
+        if (i >= steps) { clearInterval(balAnim); balAnim = null; balanceEl.textContent = value.toFixed(2); }
+      }, 40);
+    }
+
+    // Rewards coming from the song evaluator increase the balance live
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (d.type === 'sp-add-balance') {
+        var r = parseFloat(d.reward) || 0;
+        setBalance(currentBalance + r, true);
+      } else if (d.type === 'finalizar_musicas' || d.name === 'finalizar_musicas') {
+        var fb = parseFloat(d.finalBalance);
+        setBalance(isNaN(fb) ? Math.max(currentBalance, targetBalance) : fb, true);
+      }
+    });
+
+
+  </script>
+
+  <script>
+    (function () {
+      var body = document.getElementById('chatBody');
+      var input = document.getElementById('chatInput');
+      var AV = '/favicon.png';
+      var agentName = 'Spotify Support';
+      var agentAvatar = document.getElementById('agentAvatar');
+      var agentNameEl = document.getElementById('agentName');
+      var vars = { nome: '', balance: parseFloat(balanceVal).toFixed(2) };
+
+
+      function fill(t) {
+        return t.replace(/\{\{(\w+)\}\}/g, function (_, k) {
+          if (k === 'balance') return (currentBalance > 0 ? currentBalance : parseFloat(balanceVal)).toFixed(2);
+          return vars[k] || '';
+        });
+
+      }
+      function scroll() { body.scrollTop = body.scrollHeight; }
+      function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+      function botRow(inner, cls) {
+        var row = document.createElement('div');
+        row.className = 'row bot';
+        var img = document.createElement('img');
+        img.className = 'av' + (AV === '/favicon.png' ? ' support-logo' : '');
+        img.src = AV; img.alt = agentName;
+        var b = document.createElement('div');
+        b.className = 'bubble' + (cls ? ' ' + cls : '');
+        if (typeof inner === 'string') { b.textContent = inner; } else { b.appendChild(inner); }
+        row.appendChild(img); row.appendChild(b);
+        body.appendChild(row); scroll();
+        return row;
+      }
+
+      function userRow(text) {
+        var row = document.createElement('div');
+        row.className = 'row user';
+        var b = document.createElement('div');
+        b.className = 'bubble';
+        b.textContent = text;
+        row.appendChild(b);
+        body.appendChild(row); scroll();
+      }
+
+      async function typing(ms) {
+        var el = document.createElement('span');
+        el.className = 'typing';
+        el.innerHTML = '<i></i><i></i><i></i>';
+        var row = botRow(el);
+        await sleep(ms);
+        row.remove();
+      }
+
+      async function say(text) {
+        text = fill(text);
+        await typing(Math.min(1600, 500 + text.length * 12));
+        botRow(text);
+      }
+
+      function activateRepresentative() {
+        AV = '/sp/type/avatar.png';
+        agentName = 'Kaytlynn W.';
+        agentAvatar.src = AV;
+        agentAvatar.alt = agentName;
+        agentAvatar.classList.remove('support-logo');
+        agentNameEl.textContent = agentName;
+      }
+
+      async function sayStatus(text, type) {
+        text = fill(text);
+        await typing(Math.min(1600, 500 + text.length * 12));
+        var wrap = document.createElement('span');
+        wrap.className = 'message-with-icon';
+        var icon = document.createElement('span');
+        icon.className = 'message-icon ' + (type || 'success');
+        icon.setAttribute('aria-hidden', 'true');
+        if (type === 'pending') {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3a9 9 0 1 0 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
+        } else if (type === 'alert') {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3 2.8 20h18.4L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9v5M12 17.3v.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+        } else if (type === 'reward') {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M14.8 8.5h-4a2 2 0 0 0 0 4h2.4a2 2 0 1 1 0 4H9M12 6.5v2M12 16.5v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+        } else {
+          icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="m8 12 2.7 2.7L16.5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+        }
+        var content = document.createElement('span');
+        content.textContent = text;
+        wrap.appendChild(icon);
+        wrap.appendChild(content);
+        return botRow(wrap);
+      }
+
+      async function updateStatus(row, text, type) {
+        var wrap = row && row.querySelector('.message-with-icon');
+        if (!wrap) return;
+        wrap.classList.add('is-changing');
+        await sleep(220);
+        var icon = wrap.querySelector('.message-icon');
+        var content = wrap.querySelector('span:last-child');
+        if (icon) {
+          icon.className = 'message-icon ' + (type || 'success');
+          if (type === 'pending') {
+            icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M12 3a9 9 0 1 0 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>';
+          } else {
+            icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="m8 12 2.7 2.7L16.5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          }
+        }
+        if (content) content.textContent = fill(text);
+        wrap.classList.remove('is-changing');
+        scroll();
+      }
+
+      function media(url, height) {
+        var f = document.createElement('iframe');
+        f.src = fill(url);
+        f.height = height;
+        f.setAttribute('frameborder', '0');
+        f.setAttribute('allow', 'autoplay; fullscreen; encrypted-media');
+        f.setAttribute('allowfullscreen', '');
+        f.style.height = height + 'px';
+        botRow(f, 'media');
+        return f;
+      }
+
+      function videoBlock(height, ratio) {
+        var block = document.createElement('div');
+        block.className = 'vsl-block';
+        block.setAttribute('aria-label', 'Video');
+        if (ratio) block.style.aspectRatio = ratio;
+        else block.style.height = height + 'px';
+        botRow(block, 'media');
+      }
+
+
+      function clearInput() { input.innerHTML = ''; }
+
+      function askButton(label) {
+        return new Promise(function (resolve) {
+          clearInput();
+          var b = document.createElement('button');
+          b.className = 'cta';
+          b.textContent = label;
+          b.onclick = function () {
+            clearInput();
+            userRow(label);
+            resolve(label);
+          };
+          input.appendChild(b);
+          scroll();
+        });
+      }
+
+      function askText(placeholder) {
+        return new Promise(function (resolve) {
+          clearInput();
+          var wrap = document.createElement('form');
+          wrap.className = 'field';
+          var i = document.createElement('input');
+          i.type = 'text'; i.placeholder = placeholder; i.autocomplete = 'name';
+          var s = document.createElement('button');
+          s.type = 'submit'; s.innerHTML = '&#10148;';
+          wrap.appendChild(i); wrap.appendChild(s);
+          wrap.onsubmit = function (e) {
+            e.preventDefault();
+            var v = i.value.trim();
+            if (!v) return;
+            clearInput();
+            userRow(v);
+            resolve(v);
+          };
+          input.appendChild(wrap);
+          scroll();
+          setTimeout(function () { i.focus(); }, 200);
+        });
+      }
+
+      function waitForSongs(timeoutMs) {
+        return new Promise(function (resolve) {
+          var done = false;
+          function finish() {
+            if (done) return;
+            done = true;
+            window.removeEventListener('message', onMsg);
+            resolve();
+          }
+          function onMsg(e) {
+            var d = e.data;
+            var s = typeof d === 'string' ? d : (d && (d.name || d.event || d.type)) || '';
+            if (String(s).indexOf('finalizar_musicas') !== -1 || String(s).indexOf('finish') !== -1) finish();
+          }
+          window.addEventListener('message', onMsg);
+          setTimeout(finish, timeoutMs);
+        });
+      }
+
+
+      async function run() {
+        // Etapa 01
+        await say('To begin your service, your case number is 809821');
+        await sleep(4000);
+        await say("You've been one of the few people selected for the Spotify Rewards Program");
+        await sleep(3000);
+        await say("We've selected five songs for you to listen to and rate. It takes just a couple of minutes.");
+        media('/sp/songs/index.html', 355);
+        await waitForSongs(600000);
+        await sleep(3000);
+        await say('Click the button below to continue with your registration.');
+        await sleep(3000);
+
+        // Etapa 02
+        await askButton('Start Verification');
+        await sleep(2000);
+        activateRepresentative();
+        await sayStatus('Kaytlynn, the Spotify Rewards representative, has joined the chat', 'success');
+        await sleep(4000);
+        await say('Hi, welcome to the Spotify Rewards!');
+        await sleep(3000);
+        videoBlock(620);
+        await say('You have a balance of ${{balance}} in our app');
+        await sleep(3000);
+        await say('Would you like to continue so you can withdraw your money?');
+        await say('(Click the button below to continue)');
+        await askButton('Yes, I would like to withdraw');
+
+        // Etapa 03
+        await say("Would you like to receive your reward for the work you've done?");
+        await say('(Click the button below to continue)');
+        await askButton('Yes, I do!');
+
+        // Etapa 04 - name
+        await sayStatus("Okay, I'll continue with your registration.", 'success');
+        await sleep(3000);
+        await say("At this stage, I need you to tell me your name so I can verify that you're a new user.");
+        await sleep(3000);
+        await say('What is your full name?');
+        await say('(Write below)');
+        vars.nome = await askText('Enter your name here...');
+        var checkingRow = await sayStatus('Checking...', 'pending');
+        await sleep(6000);
+
+        // Etapa 05
+        await updateStatus(checkingRow, 'Just a moment...', 'pending');
+        await sleep(10000);
+        await updateStatus(checkingRow, 'Everything looks good, {{nome}}!\n\nI checked our system and saw that you are eligible to receive your commission of ${{balance}}', 'success');
+
+        // Etapa 06
+        await sleep(3000);
+        await say('I\u2019m sending you the receipt for your commissions.');
+        await sleep(1000);
+        var receiptLoadingRow = await sayStatus('Loading...', 'pending');
+        await sleep(4000);
+        await updateStatus(receiptLoadingRow, 'Generating your commission withdrawal receipt...', 'pending');
+        await sleep(4000);
+        var receiptFrame = media('/sp/receipt/index.html?nome=' + encodeURIComponent(vars.nome) + '&total=' + encodeURIComponent((currentBalance > 0 ? currentBalance : parseFloat(balanceVal)).toFixed(2)), 440);
+        receiptFrame.className = 'withdraw-receipt';
+        receiptFrame.onload = function () {
+          var documentReceipt = receiptFrame.contentDocument && receiptFrame.contentDocument.querySelector('.receipt');
+          if (!documentReceipt) return;
+          function fitReceipt() {
+            var height = Math.ceil(documentReceipt.getBoundingClientRect().height);
+            receiptFrame.style.height = height + 'px';
+            receiptFrame.height = height;
+          }
+          new ResizeObserver(fitReceipt).observe(documentReceipt);
+          fitReceipt();
+        };
+        await sleep(4000);
+
+        // Etapa 07
+        await say('(Click the button below to continue)');
+        await askButton('I want to claim my reward');
+
+        // VSL + oferta
+        await sayStatus('Your access to withdraw your commission will be granted after this short explanatory video', 'alert');
+        videoBlock(0, '16 / 9');
+        await sayStatus('Your balance of ${{balance}} is ready!\n\nTo withdraw your earnings today, all you need to do is pay a small security activation fee of $9.00\n\nThis is to verify your account and ensure that you are not a bot.', 'reward');
+        await sleep(5000);
+        await sayStatus('Please note: The fee will be fully refunded after registration, along with your current balance of ${{balance}}', 'alert');
+        await sleep(4000);
+        await say('This is a unique opportunity.\n\nIf you decide to leave now, your balance will be canceled and transferred to another user on the waiting list.');
+        await sleep(3000);
+
+      }
+
+      run();
+    })();
+  </script>
+
+
+</body>
+
+</html>

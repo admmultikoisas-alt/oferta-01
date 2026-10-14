@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streaming Income Foundations — A Practical Course for Independent Artists</title>
+  <meta name="description" content="Learn how music distribution, royalties, release planning and audience growth work in a practical online course for independent artists.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Streaming Income Foundations">
+  <meta property="og:description" content="A practical online course about music distribution, royalties and sustainable audience growth.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <style>
+    :root {
+      --page: #f7f8f5;
+      --surface: #ffffff;
+      --ink: #10130f;
+      --muted: #5f675e;
+      --line: #dce1da;
+      --brand: #16883d;
+      --brand-dark: #0d5d29;
+      --brand-soft: #e7f5ea;
+      --dark: #101510;
+      --dark-muted: #b7c0b6;
+      --shadow: 0 20px 60px rgba(18, 35, 21, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--page); line-height: 1.6; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar { background: var(--dark); color: var(--dark-muted); font-size: 13px; text-align: center; padding: 8px 16px; }
+    .nav { height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; text-decoration: none; }
+    .brand-mark { width: 30px; height: 30px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; color: var(--surface); font-size: 15px; }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 700; }
+    .nav-links a { text-decoration: none; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; border: 0; border-radius: 6px; padding: 0 24px; font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; transition: transform .2s ease, background .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--brand); color: var(--surface); }
+    .button-primary:hover { background: var(--brand-dark); }
+    .button-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+    .hero { position: relative; min-height: 680px; display: grid; align-items: center; color: var(--surface); background: var(--dark); overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 15, 10, .98) 0%, rgba(10, 15, 10, .9) 42%, rgba(10, 15, 10, .18) 75%), url('/w/course-studio.jpg') center/cover no-repeat; }
+    .hero-content { position: relative; z-index: 1; max-width: 650px; padding: 82px 0 96px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: #7ee19a; text-transform: uppercase; font-size: 12px; font-weight: 800; letter-spacing: 1.5px; }
+    .eyebrow::before { content: ""; width: 24px; height: 2px; background: currentColor; }
+    h1, h2, h3 { margin: 0; line-height: 1.12; }
+    h1 { margin-top: 18px; font-size: clamp(42px, 6vw, 74px); max-width: 720px; }
+    .hero p { max-width: 610px; margin: 24px 0 30px; color: #d5dbd4; font-size: 19px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { margin-top: 18px; font-size: 12px; color: #aeb8ad; }
+    .proof { position: relative; z-index: 2; margin-top: -38px; }
+    .proof-inner { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); box-shadow: var(--shadow); border: 1px solid var(--line); }
+    .proof-item { padding: 25px 28px; border-right: 1px solid var(--line); }
+    .proof-item:last-child { border-right: 0; }
+    .proof-item strong { display: block; font-size: 16px; margin-bottom: 4px; }
+    .proof-item span { color: var(--muted); font-size: 13px; }
+    section { padding: 96px 0; }
+    .section-head { max-width: 720px; margin-bottom: 44px; }
+    .section-head h2 { margin-top: 13px; font-size: clamp(34px, 4vw, 52px); }
+    .section-head p { color: var(--muted); font-size: 17px; margin: 18px 0 0; }
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .outcome { padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+    .outcome-number { color: var(--brand); font-weight: 900; font-size: 13px; }
+    .outcome h3 { margin: 18px 0 10px; font-size: 21px; }
+    .outcome p { margin: 0; color: var(--muted); font-size: 15px; }
+    .curriculum { background: var(--dark); color: var(--surface); }
+    .curriculum .section-head p { color: var(--dark-muted); }
+    .modules { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #30382f; }
+    .module { display: grid; grid-template-columns: 50px 1fr; gap: 18px; padding: 28px 24px 28px 0; border-bottom: 1px solid #30382f; }
+    .module:nth-child(odd) { border-right: 1px solid #30382f; }
+    .module:nth-child(even) { padding-left: 28px; }
+    .module b { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #405042; color: #7ee19a; border-radius: 50%; }
+    .module h3 { font-size: 18px; margin-bottom: 7px; }
+    .module p { margin: 0; color: var(--dark-muted); font-size: 14px; }
+    .fit-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: center; }
+    .fit-panel { background: var(--brand-soft); border: 1px solid #c8e6cf; padding: 36px; border-radius: 6px; }
+    .fit-panel h3 { font-size: 26px; margin-bottom: 22px; }
+    .check-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+    .check-list li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; }
+    .check { width: 22px; height: 22px; border-radius: 50%; background: var(--brand); color: var(--surface); display: grid; place-items: center; font-size: 12px; font-weight: 900; }
+    .steps { display: grid; gap: 22px; }
+    .step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
+    .step b { width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--brand-dark); }
+    .step h3 { font-size: 18px; margin: 4px 0 5px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .faq { background: var(--surface); }
+    .faq-list { max-width: 820px; }
+    details { border-top: 1px solid var(--line); padding: 21px 0; }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary { cursor: pointer; font-weight: 800; list-style: none; padding-right: 30px; position: relative; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; position: absolute; right: 0; top: -6px; font-size: 25px; color: var(--brand); }
+    details[open] summary::after { content: "−"; }
+    details p { color: var(--muted); margin: 14px 0 0; max-width: 720px; font-size: 15px; }
+    .final { padding: 78px 0; background: var(--brand); color: var(--surface); text-align: center; }
+    .final h2 { font-size: clamp(34px, 4vw, 52px); }
+    .final p { max-width: 650px; margin: 18px auto 28px; color: #e1f4e5; }
+    .final .button { background: var(--surface); color: var(--brand-dark); }
+    footer { background: #090c09; color: #90998f; padding: 42px 0; font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 28px; align-items: flex-start; }
+    .footer-copy { max-width: 720px; }
+    footer strong { display: block; color: var(--surface); font-size: 15px; margin-bottom: 9px; }
+    footer p { margin: 0 0 8px; }
+    @media (max-width: 820px) {
+      .nav-links a:not(.button) { display: none; }
+      .hero { min-height: 620px; }
+      .hero::before { background: linear-gradient(90deg, rgba(10, 15, 10, .96), rgba(10, 15, 10, .67)), url('/w/course-studio.jpg') 62% center/cover no-repeat; }
+      .proof-inner, .outcomes { grid-template-columns: 1fr; }
+      .proof-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .proof-item:last-child { border-bottom: 0; }
+      .modules { grid-template-columns: 1fr; }
+      .module:nth-child(odd) { border-right: 0; }
+      .module:nth-child(even) { padding-left: 0; }
+      .fit-grid { grid-template-columns: 1fr; gap: 42px; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 28px, 1160px); }
+      .nav { height: 64px; }
+      .nav-links .button { min-height: 42px; padding: 0 14px; font-size: 12px; }
+      .brand { font-size: 16px; }
+      .hero { min-height: 650px; }
+      .hero-content { padding: 65px 0 88px; }
+      h1 { font-size: 42px; }
+      .hero p { font-size: 17px; }
+      .hero-actions .button { width: 100%; }
+      section { padding: 72px 0; }
+      .fit-panel { padding: 26px 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">Educational training for independent artists and music creators</div>
+  <header class="container nav">
+    <a class="brand" href="/w/index.html"><span class="brand-mark">♪</span> Streaming Foundations</a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#curriculum">Curriculum</a>
+      <a href="#how-it-works">How it works</a>
+      <span class="button button-primary checkout-link" aria-disabled="true">View enrollment</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="eyebrow">Online course for independent artists</span>
+        <h1>Understand how music earns in the streaming era.</h1>
+        <p>Build a practical foundation in royalties, distribution, release planning and audience development—without confusing industry jargon.</p>
+        <div class="hero-actions">
+          <span class="button button-primary checkout-link" aria-disabled="true">View enrollment options</span>
+          <a class="button button-secondary" href="#curriculum">Explore the curriculum</a>
+        </div>
+        <div class="hero-note">Self-paced educational content. Individual outcomes vary and income is not guaranteed.</div>
+      </div>
+    </section>
+
+    <div class="proof">
+      <div class="container proof-inner">
+        <div class="proof-item"><strong>Beginner-friendly</strong><span>Clear lessons with practical examples</span></div>
+        <div class="proof-item"><strong>Self-paced access</strong><span>Learn around your own release schedule</span></div>
+        <div class="proof-item"><strong>Independent approach</strong><span>Designed for self-managed music creators</span></div>
+      </div>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">What you will learn</span>
+          <h2>A clearer view of the music business.</h2>
+          <p>Turn complex streaming concepts into a repeatable framework for managing your catalog and making better release decisions.</p>
+        </div>
+        <div class="outcomes">
+          <article class="outcome"><span class="outcome-number">01</span><h3>Follow the money flow</h3><p>Understand how platform revenue moves through rights holders, distributors and collection organizations.</p></article>
+          <article class="outcome"><span class="outcome-number">02</span><h3>Prepare better releases</h3><p>Build a practical release checklist covering metadata, distribution timing and artist profile readiness.</p></article>
+          <article class="outcome"><span class="outcome-number">03</span><h3>Read your performance</h3><p>Learn which audience and catalog signals can help guide future promotion and content decisions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="curriculum" id="curriculum">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Course curriculum</span>
+          <h2>From your first upload to a sustainable catalog.</h2>
+          <p>Six focused modules covering the essential systems behind digital music distribution and growth.</p>
+        </div>
+        <div class="modules">
+          <article class="module"><b>1</b><div><h3>Streaming business fundamentals</h3><p>Key participants, rights and the revenue chain explained clearly.</p></div></article>
+          <article class="module"><b>2</b><div><h3>Royalties and rights</h3><p>Master recordings, publishing and the organizations involved in collection.</p></div></article>
+          <article class="module"><b>3</b><div><h3>Distribution setup</h3><p>How to compare distributors and prepare accurate release information.</p></div></article>
+          <article class="module"><b>4</b><div><h3>Release planning</h3><p>A practical timeline for assets, pitching and audience communication.</p></div></article>
+          <article class="module"><b>5</b><div><h3>Audience development</h3><p>Organic ways to connect social content, listeners and artist profiles.</p></div></article>
+          <article class="module"><b>6</b><div><h3>Analytics and next steps</h3><p>How to review useful signals and make grounded catalog decisions.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container fit-grid">
+        <div class="fit-panel">
+          <h3>This course is a good fit if you:</h3>
+          <ul class="check-list">
+            <li><span class="check">✓</span><span>Are releasing music independently or planning your first release.</span></li>
+            <li><span class="check">✓</span><span>Want to understand royalties without relying on vague online advice.</span></li>
+            <li><span class="check">✓</span><span>Need a practical framework for organizing your catalog and promotion.</span></li>
+            <li><span class="check">✓</span><span>Prefer realistic education over overnight-success promises.</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-head">
+            <span class="eyebrow">How it works</span>
+            <h2>Learn at your pace. Apply it to your music.</h2>
+          </div>
+          <div class="steps">
+            <article class="step"><b>1</b><div><h3>Join online</h3><p>Choose an available enrollment option and receive access instructions.</p></div></article>
+            <article class="step"><b>2</b><div><h3>Complete each module</h3><p>Work through the lessons in the order that fits your current stage.</p></div></article>
+            <article class="step"><b>3</b><div><h3>Use the framework</h3><p>Apply the concepts to your release planning, catalog and audience strategy.</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Frequently asked questions</span>
+          <h2>Before you enroll.</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>Do I need music industry experience?</summary><p>No. The course starts with the fundamentals and is designed for independent artists, producers and managers at an early stage.</p></details>
+          <details><summary>Does the course guarantee streaming income?</summary><p>No. The program is educational and does not promise a particular financial or career result. Outcomes vary by catalog, audience, market and the work each participant applies.</p></details>
+          <details><summary>Is this course affiliated with Spotify?</summary><p>No. This is an independent educational program. Spotify is a trademark of Spotify AB, which does not sponsor, endorse or administer this course.</p></details>
+          <details><summary>What device can I use?</summary><p>The course materials are designed to work on current mobile phones, tablets and computers with internet access.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="container">
+        <h2>Build your music business knowledge.</h2>
+        <p>Start with the fundamentals and create a more informed approach to distribution, releases and long-term audience development.</p>
+        <span class="button checkout-link" aria-disabled="true">View enrollment options</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        <strong>Streaming Foundations</strong>
+        <p>Independent educational content for music creators. Information is general and does not constitute financial, legal or career advice.</p>
+        <p>Spotify is a trademark of Spotify AB. This program is not affiliated with, endorsed by or sponsored by Spotify AB.</p>
+      </div>
+      <div>© 2026 Streaming Foundations</div>
+    </div>
+  </footer>
+
+
+</body>
+</html>
