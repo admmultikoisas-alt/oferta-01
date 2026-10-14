@@ -320,7 +320,8 @@
     }
 
     .bubble.media iframe,
-    .bubble.media img {
+    .bubble.media img,
+    .bubble.media vturb-smartplayer {
       display: block;
       width: 100%;
       border: 0;
@@ -720,6 +721,20 @@
         botRow(block, 'media');
       }
 
+      function introVideoBlock() {
+        var block = document.createElement('div');
+        block.className = 'vsl-block';
+        block.setAttribute('aria-label', 'Video');
+        block.innerHTML = '<vturb-smartplayer id="vid-6ad008958637240918ada8a0" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 177.77777777777777% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>';
+        botRow(block, 'media');
+
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = 'https://scripts.converteai.net/f580540e-ff4a-4346-b3f7-860a26e799ad/players/6ad008958637240918ada8a0/v4/player.js';
+        s.async = true;
+        document.head.appendChild(s);
+      }
+
 
       function clearInput() { input.innerHTML = ''; }
 
@@ -804,7 +819,7 @@
         await sleep(4000);
         await say('Hi, welcome to the Spotify Rewards!');
         await sleep(3000);
-        videoBlock(620);
+        introVideoBlock();
         await say('You have a balance of ${{balance}} in our app');
         await sleep(3000);
         await say('Would you like to continue so you can withdraw your money?');
