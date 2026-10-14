@@ -310,18 +310,35 @@
 
     @keyframes iconSpin { to { transform: rotate(360deg); } }
 
+    .row.has-media {
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .row.media-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin: 8px 0;
+      animation: messageIn .34s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
     .bubble.media {
+      flex: 1;
+      min-width: 0;
+      max-width: calc(100% - 38px);
+      width: calc(100% - 38px);
       padding: 0;
       overflow: hidden;
-      width: 100%;
-      max-width: 100%;
       background: #000;
-      border-color: rgba(0, 0, 0, .15);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, .15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
 
     .bubble.media iframe,
-    .bubble.media img,
-    .bubble.media vturb-smartplayer {
+    .bubble.media img {
       display: block;
       width: 100%;
       border: 0;
@@ -329,6 +346,25 @@
 
     .bubble.media iframe.withdraw-receipt {
       background: #fff;
+    }
+
+    .vsl-block {
+      width: 100%;
+      max-width: 330px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      border: 1.5px solid rgba(29, 185, 84, 0.35);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(29, 185, 84, 0.15);
+      position: relative;
+    }
+
+    .vsl-block vturb-smartplayer {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
     }
 
     .typing {
@@ -610,7 +646,7 @@
 
       function botRow(inner, cls) {
         var row = document.createElement('div');
-        row.className = 'row bot';
+        row.className = 'row bot' + (cls ? ' has-' + cls : '');
         var img = document.createElement('img');
         img.className = 'av' + (AV === '/favicon.png' ? ' support-logo' : '');
         img.src = AV; img.alt = agentName;
@@ -713,20 +749,29 @@
       }
 
       function videoBlock(height, ratio) {
+        var row = document.createElement('div');
+        row.className = 'row media-row';
         var block = document.createElement('div');
         block.className = 'vsl-block';
         block.setAttribute('aria-label', 'Video');
         if (ratio) block.style.aspectRatio = ratio;
-        else block.style.height = height + 'px';
-        botRow(block, 'media');
+        else if (height) block.style.height = height + 'px';
+        row.appendChild(block);
+        body.appendChild(row);
+        scroll();
+        return block;
       }
 
       function introVideoBlock() {
+        var row = document.createElement('div');
+        row.className = 'row media-row';
         var block = document.createElement('div');
         block.className = 'vsl-block';
         block.setAttribute('aria-label', 'Video');
-        block.innerHTML = '<vturb-smartplayer id="vid-6ad008958637240918ada8a0" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 177.77777777777777% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>';
-        botRow(block, 'media');
+        block.innerHTML = '<vturb-smartplayer id="vid-6ad008958637240918ada8a0" style="display: block; margin: 0 auto; width: 100%; max-width: 330px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 177.77777777777777% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>';
+        row.appendChild(block);
+        body.appendChild(row);
+        scroll();
 
         var s = document.createElement('script');
         s.type = 'text/javascript';
