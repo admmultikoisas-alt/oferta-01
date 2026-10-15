@@ -355,12 +355,12 @@
     }
 
     .questions-wrap.locked {
-      pointer-events: none;
-      opacity: 0.35;
+      pointer-events: auto;
+      opacity: 1;
     }
 
     .questions-wrap.locked button {
-      cursor: not-allowed;
+      cursor: pointer;
     }
 
     .question-block {
@@ -1255,7 +1255,7 @@
 
       // Reset play state
       isPlaying = false;
-      songUnlocked = false;
+      songUnlocked = true;
       setPlayIcon(false);
       if (audioEl) { audioEl.pause(); audioEl.src = ''; audioEl = null; }
       
@@ -1265,10 +1265,10 @@
 
       // Reset UI states
       instructionBanner.style.display = '';
-      instructionBanner.innerHTML = '🎵 Press play and listen to the song to unlock the evaluation questions.';
+      instructionBanner.innerHTML = '🎵 Press play or answer the evaluation questions below:';
       songCard.style.display = '';
       questionsWrap.style.display = '';
-      questionsWrap.classList.add('locked');
+      questionsWrap.classList.remove('locked');
       finishBtn.style.display = '';
       recaptchaText.style.display = '';
       successCard.classList.remove('show');
@@ -1286,7 +1286,7 @@
     }
 
     function checkReady() {
-      if (q1Answer !== null && q2Answer !== null && songUnlocked) {
+      if (q1Answer !== null || q2Answer !== null) {
         finishBtn.disabled = false;
         finishBtn.classList.add('active');
       } else {

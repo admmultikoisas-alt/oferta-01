@@ -196,8 +196,8 @@
       flex-direction: column;
       gap: 10px;
       transition: opacity 0.3s;
-      opacity: 0.35;
-      pointer-events: none;
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .questions-wrap.unlocked {
@@ -555,7 +555,7 @@
     function unlockQuestions() {
       songUnlocked = true;
       questionsWrap.classList.add('unlocked');
-      instructionBanner.innerHTML = '🎉 Preview finished! Answer the questions below and tap <strong>FINISH & EARN</strong>';
+      instructionBanner.innerHTML = '🎉 Answer the questions below and tap <strong>FINISH & EARN</strong>';
       checkReady();
     }
 
@@ -567,11 +567,9 @@
         if (simSeconds <= 0) {
           clearInterval(simInterval);
           simInterval = null;
-          unlockQuestions();
+          instructionBanner.innerHTML = '🎉 Preview finished! Answer the questions below and tap <strong>FINISH & EARN</strong>';
         } else {
-          if (!songUnlocked) {
-            instructionBanner.innerHTML = '🎵 Listen to the preview (' + simSeconds + 's remaining) to unlock evaluation.';
-          }
+          instructionBanner.innerHTML = '🎵 Playing preview (' + simSeconds + 's remaining)...';
         }
       }, 1000);
     }
@@ -600,33 +598,29 @@
       }
 
       isPlaying = false;
-      songUnlocked = false;
+      songUnlocked = true;
       simSeconds = 10;
       if (simInterval) { clearInterval(simInterval); simInterval = null; }
       setPlayIcon(false);
 
       q1Answer = null; q2Answer = null;
-      [q1Yes, q1No, q2Yes, q2No].forEach(function(b) { b.classList.remove('selected'); });
+      [q1Yes, q1No, q2Yes, q2No].forEach(function(b) { if (b) b.classList.remove('selected'); });
       
       finishBtn.disabled = true;
       finishBtn.classList.remove('active');
       finishBtn.style.display = 'block';
 
-      questionsWrap.classList.remove('unlocked');
+      questionsWrap.classList.add('unlocked');
       questionsWrap.style.display = 'flex';
       songCard.style.display = 'flex';
       instructionBanner.style.display = 'block';
-      instructionBanner.innerHTML = '🎵 Press <strong>PLAY</strong> to listen to the preview and unlock the evaluation.';
+      instructionBanner.innerHTML = '🎵 Press <strong>PLAY</strong> or answer the questions below to earn:';
       successCard.classList.remove('show');
       updateProgress();
-      if (isDevelopment) {
-        unlockQuestions();
-        instructionBanner.innerHTML = '<strong>Development mode:</strong> evaluation unlocked.';
-      }
     }
 
     function checkReady() {
-      if (q1Answer !== null && songUnlocked) {
+      if (q1Answer !== null || q2Answer !== null) {
         finishBtn.disabled = false;
         finishBtn.classList.add('active');
       } else {
@@ -638,9 +632,9 @@
     function selectOption(btn, ans, type) {
       var yes = document.getElementById(type + 'Yes');
       var no = document.getElementById(type + 'No');
-      yes.classList.remove('selected');
-      no.classList.remove('selected');
-      btn.classList.add('selected');
+      if (yes) yes.classList.remove('selected');
+      if (no) no.classList.remove('selected');
+      if (btn) btn.classList.add('selected');
       if (type === 'q1') q1Answer = ans;
       else q2Answer = ans;
       checkReady();
@@ -657,23 +651,13 @@
       if (!audioEl) {
         audioEl = new Audio(song.src);
         audioEl.addEventListener('error', function(e) {
-          var errorMsg = "Erro desconhecido";
-          if (audioEl.error) {
-            switch (audioEl.error.code) {
-              case 1: errorMsg = "Reprodução abortada"; break;
-              case 2: errorMsg = "Erro de rede"; break;
-              case 3: errorMsg = "Erro de decodificação"; break;
-              case 4: errorMsg = "Formato/link não suportado ou CORS"; break;
-            }
-          }
-          instructionBanner.innerHTML = '⚠️ Erro de Áudio: ' + errorMsg + ' (' + song.src.substring(0, 50) + '...)';
+          console.warn("Audio playback notice:", e);
         });
 
         audioEl.addEventListener('ended', function() {
           isPlaying = false;
           setPlayIcon(false);
           if (simInterval) { clearInterval(simInterval); simInterval = null; }
-          unlockQuestions();
         });
       }
 
@@ -682,32 +666,23 @@
         isPlaying = false;
         setPlayIcon(false);
       } else {
-        // Fallback: se o áudio não carregar em 3s, libera a avaliação mesmo assim
-        var clickedAt = Date.now();
-        setTimeout(function() {
-          if (songUnlocked) return;
-          if (!audioEl || audioEl.error || (isPlaying && audioEl.currentTime < 0.5)) {
-            if (Date.now() - clickedAt >= 2800) {
-              try { if (audioEl) audioEl.pause(); } catch(e){}
-              isPlaying = false;
-              setPlayIcon(false);
-              if (simInterval) { clearInterval(simInterval); simInterval = null; }
-              instructionBanner.innerHTML = '🎉 Preview unlocked! Answer the questions below and tap <strong>FINISH & EARN</strong>';
-              unlockQuestions();
-            }
-          }
-        }, 3000);
-        audioEl.play().then(function() {
+        var playPromise = audioEl.play();
+        if (playPromise !== undefined) {
+          playPromise.then(function() {
+            isPlaying = true;
+            setPlayIcon(true);
+            startCountdown();
+          }).catch(function(err) {
+            console.warn("Autoplay notice:", err);
+            isPlaying = true;
+            setPlayIcon(true);
+            startCountdown();
+          });
+        } else {
           isPlaying = true;
           setPlayIcon(true);
           startCountdown();
-        }).catch(function(err) {
-          console.log("Audio play fallthrough:", err);
-          instructionBanner.innerHTML = '⚠️ Erro de Autoplay: ' + err.message;
-          isPlaying = true;
-          setPlayIcon(true);
-          startCountdown();
-        });
+        }
       }
     }
 
@@ -745,7 +720,6 @@
       setTimeout(function() {
         if (totalDone < SONGS.length) {
           loadSong();
-          if (!isDevelopment) togglePlay(); // autoplay da próxima música em produção
         } else {
           notifyCompletionToTypebot();
           successCard.style.display = 'none';
