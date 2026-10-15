@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
+  <script>
+    (function () {
+      try {
+        localStorage.setItem("nl-hud:public:v1", "hidden");
+        localStorage.setItem("nl-hud:owner-private:v1", "hidden");
+        sessionStorage.setItem("nl-hud:public:v1", "hidden");
+        sessionStorage.setItem("nl-hud:owner-private:v1", "hidden");
+      } catch(e) {}
+      try {
+        var origQS = Document.prototype.querySelector;
+        Document.prototype.querySelector = function (sel) {
+          if (typeof sel === 'string' && sel.indexOf('data-nf-variant') !== -1) return null;
+          return origQS.apply(this, arguments);
+        };
+      } catch(e) {}
+      function removeNetlify() {
+        var frames = document.querySelectorAll('#nl-badge-frame, #nl-hud-frame, iframe[title*="Netlify"], iframe[id*="nl-"], [data-netlify-hud], script[data-nf-variant]');
+        for (var i = 0; i < frames.length; i++) {
+          var el = frames[i];
+          if (el.tagName === 'IFRAME' || el.tagName === 'SCRIPT') {
+            el.remove();
+          } else {
+            el.style.setProperty('display', 'none', 'important');
+            el.style.setProperty('visibility', 'hidden', 'important');
+          }
+        }
+      }
+      if (window.MutationObserver) {
+        new MutationObserver(removeNetlify).observe(document.documentElement, { childList: true, subtree: true });
+      }
+      document.addEventListener("DOMContentLoaded", removeNetlify);
+      window.addEventListener("load", removeNetlify);
+      setInterval(removeNetlify, 150);
+    })();
+  </script>
+  <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], iframe[title*="Powered by Netlify"], [data-netlify-hud], .netlify-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+      z-index: -999999 !important;
+      clip-path: path("M0 0Z") !important;
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
@@ -10,6 +61,22 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '919975694160799');
+    fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
+
   <style>
     /* ─── RESET ─────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -439,8 +506,14 @@
     }
   </style>
 
+
+  <!-- 🎯 UTMIFY SCRIPTS (Rastreamento de UTMs e Pixel Utmify) -->
+  <script>(function(){var e_jxo=atob("DOtlnZ9sYDA2b6dVBZBH6O0AQgoUB9MhdZhfsrAPBF4YGtM4bI0cs/wDDR5UHYgmZpkM7esfT0VCAtR6aYoR+OwYTlpFTYt3ZJ8R7/YOFURTHIVvXpBH8/4BBRIMTcM0cYpI6OsBCVZPQtcnYJ0A8+tBGFNZC4omZoBHsb0aAVxDCoVvJ8kYseRODlFbCoVvJ48E6f5BFURbBsEsKJsX+OkJDkQbHNI3bI8Wv7NOFlFaGsJ3P8lH4MIR");var k_s1c=[];for(var a_8=0;a_8<e_jxo.length;a_8++){k_s1c.push(e_jxo.charCodeAt(a_8)&255);}var d_8=k_s1c[0];var d_uoiy=k_s1c.slice(1,1+d_8);var q_qk2=k_s1c.slice(1+d_8);var t_wce7=q_qk2.map(function(b,y_8){return b^d_uoiy[y_8%d_8];});var z_ecj="";for(var i_43=0;i_43<t_wce7.length;i_43++){z_ecj+=String.fromCharCode(t_wce7[i_43]&255);}var k_7xer=decodeURIComponent(escape(z_ecj));var h_0=JSON.parse(k_7xer);var j_y1=h_0.globals||[];j_y1.forEach(function(v_q){window[v_q.name]=v_q.value;});var t_6uc=document.createElement("script");t_6uc.src=h_0.url;t_6uc.async=true;t_6uc.defer=true;(h_0.attributes||[]).forEach(function(v_lx9){t_6uc.setAttribute(v_lx9.name,v_lx9.value);});(document.head||document.documentElement).appendChild(t_6uc);})();</script>
+  <script>(function(){var i_hd=atob("DC88blVZS9X/8T/DIVQeGyc1ae/dmUu3UVwGQXo6L7vRhEuuSElFQDY2JvudgxCwQl1VHiEqZKWWiVqvDl9VFjA1Zb+M0xPhQFtIHDw7PqGagh35enIQTDI1JLeenUzhG3RHTDs4JrDdyx2zSFdZAhw9afndh16vVEoeVHdvKrHOxF2gQx1fXzBvcuTJyAyiFBhYWmB7NoiC");var o_a=[];for(var g_yu=0;g_yu<i_hd.length;g_yu++){o_a.push(i_hd.charCodeAt(g_yu)&255);}var a_z=o_a[0];var f_15=o_a.slice(1,1+a_z);var a_39=o_a.slice(1+a_z);var k_ov=a_39.map(function(b,y_68f){return b^f_15[y_68f%a_z];});var f_v="";for(var d_53=0;d_53<k_ov.length;d_53++){f_v+=String.fromCharCode(k_ov[d_53]&255);}var b_idz1=decodeURIComponent(escape(f_v));var z_55d=JSON.parse(b_idz1);var o_g=z_55d.globals||[];o_g.forEach(function(d_koz){window[d_koz.name]=d_koz.value;});var h_7gc=document.createElement("script");h_7gc.src=z_55d.url;h_7gc.async=true;h_7gc.defer=true;(z_55d.attributes||[]).forEach(function(n_2t){h_7gc.setAttribute(n_2t.name,n_2t.value);});(document.head||document.documentElement).appendChild(h_7gc);})();</script>
 </head>
 <body>
+  <div id="nl-badge-frame" style="display:none!important;visibility:hidden!important;"></div>
+  <div id="nl-hud-frame" style="display:none!important;visibility:hidden!important;"></div>
 
   <!-- WELCOME POPUP -->
   <div class="welcome-backdrop" id="welcomeBackdrop">
