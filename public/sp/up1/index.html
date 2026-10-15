@@ -8,10 +8,36 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  
-  
+  <script>
+    try {
+      localStorage.setItem("nl-hud:public:v1", "hidden");
+      localStorage.setItem("nl-hud:owner:v1", "hidden");
+      sessionStorage.setItem("nl-hud:public:v1", "hidden");
+    } catch(e){}
+    (function () {
+      function rm() {
+        var el = document.getElementById("nl-badge-frame") || document.getElementById("nl-hud-frame") || document.querySelector("iframe[title*='Netlify']");
+        if (el && el.tagName === 'IFRAME') el.remove();
+      }
+      document.addEventListener("DOMContentLoaded", rm);
+      window.addEventListener("load", rm);
+      setInterval(rm, 250);
+    })();
+  </script>
+
   <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], [data-netlify-hud], .netlify-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+      z-index: -99999 !important;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       margin: 0; padding: 0;
@@ -143,6 +169,8 @@
 
 </head>
 <body>
+  <div id="nl-badge-frame" style="display:none!important;visibility:hidden!important;"></div>
+  <div id="nl-hud-frame" style="display:none!important;visibility:hidden!important;"></div>
 
   <!-- LOADING OVERLAY -->
   <div id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(ellipse at 50% 0%, #0d3320 0%, #071a0f 40%, #050505 75%); z-index:999999; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; box-sizing:border-box;">

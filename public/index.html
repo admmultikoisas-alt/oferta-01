@@ -6,11 +6,26 @@
   <title>Spotify Rewards</title>
   <link rel="icon" type="image/png" href="/favicon.png">
   <script>
+    try {
+      localStorage.setItem("nl-hud:public:v1", "hidden");
+      localStorage.setItem("nl-hud:owner:v1", "hidden");
+      sessionStorage.setItem("nl-hud:public:v1", "hidden");
+    } catch(e){}
     var search = window.location.search || '';
     window.location.replace('/sp/type/index.html' + search);
   </script>
+  <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], [data-netlify-hud], .netlify-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
 </head>
 <body style="background:#07160b;margin:0;display:flex;align-items:center;justify-content:center;height:100vh;color:#fff;font-family:sans-serif;">
+  <div id="nl-badge-frame" style="display:none!important;visibility:hidden!important;"></div>
+  <div id="nl-hud-frame" style="display:none!important;visibility:hidden!important;"></div>
   <p>Carregando...</p>
 </body>
 </html>
