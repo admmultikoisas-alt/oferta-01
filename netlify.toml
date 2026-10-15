@@ -1,0 +1,26 @@
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/"
+  to = "/sp/type/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/up1"
+  to = "/sp/up1/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/up2"
+  to = "/sp/up2/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/w"
+  to = "/w/index.html"
+  status = 200
+  force = true
