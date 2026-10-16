@@ -1059,6 +1059,9 @@
         if (vars.nome) {
           currentParams.set('name', vars.nome);
         }
+        if (!currentParams.has('balance')) {
+          currentParams.set('balance', (currentBalance > 0 ? currentBalance : parseFloat(balanceVal) || 438.77).toFixed(2));
+        }
         var sep = checkoutBase.indexOf('?') !== -1 ? '&' : '?';
         window.location.href = checkoutBase + sep + currentParams.toString();
 
