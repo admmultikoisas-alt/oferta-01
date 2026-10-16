@@ -14,8 +14,38 @@
   force = true
 
 [[redirects]]
+  from = "/up1/index.html"
+  to = "/sp/up1/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/up2"
   to = "/sp/up2/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/up2/index.html"
+  to = "/sp/up2/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/app"
+  to = "/sp/app/app.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/app/app.html"
+  to = "/sp/app/app.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/obrigado"
+  to = "/sp/app/app.html"
   status = 200
   force = true
 
