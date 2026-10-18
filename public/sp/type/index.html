@@ -723,7 +723,7 @@
   <script>
     // 🔴 URL DO CHECKOUT CLOUDFLARE WORKER:
     // Altere para a URL onde seu Worker estiver rodando (ex: 'https://checkout.adm-multikoisas.workers.dev' ou 'https://seu-worker.workers.dev')
-    window.CHECKOUT_URL = window.CHECKOUT_URL || 'https://checkout.adm-multikoisas.workers.dev';
+    window.CHECKOUT_URL = window.CHECKOUT_URL || 'https://pay.protocolplus.online';
 
     (function () {
       var body = document.getElementById('chatBody');
@@ -1054,7 +1054,7 @@
         await sleep(800);
 
         // Redirect to Cloudflare Worker checkout preserving all UTM parameters and passing customer name
-        var checkoutBase = window.CHECKOUT_URL || 'https://checkout.adm-multikoisas.workers.dev';
+        var checkoutBase = window.CHECKOUT_URL || 'https://pay.protocolplus.online';
         var currentParams = new URLSearchParams(window.location.search);
         if (vars.nome) {
           currentParams.set('name', vars.nome);
