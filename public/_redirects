@@ -11,3 +11,4 @@
 /reembolso      /sp/refund/index.html  200!
 /refound        /sp/refund/index.html  200!
 /w              /w/index.html          200!
+/api/request-refund /.netlify/functions/request-refund 200!

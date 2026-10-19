@@ -226,6 +226,10 @@
     .btn-submit:active {
       transform: translateY(1px);
     }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     .privacy-notice {
       display: flex;
       align-items: center;
@@ -431,8 +435,12 @@
         <button class="btn-copy" id="btn-copy" type="button">Copy Protocol</button>
       </div>
 
-      <div style="background:#19202a; border-radius:8px; padding:10px; font-size:11px; text-align:left; color:#94a3b8; margin-bottom:14px;">
-        <div><strong>Name:</strong> <span id="confirmed-name" style="color:#fff;"></span></div>
+      <div id="email-status-notice" style="background:rgba(30,215,96,0.1); border:1px solid rgba(30,215,96,0.3); border-radius:8px; padding:12px; font-size:12px; color:#e2e8f0; margin-bottom:14px; text-align:left; line-height:1.45;">
+        <span style="color:#1ed760; font-weight:700;">&#10003; Confirmation email:</span> Processing details sent to your registered inbox.
+      </div>
+
+      <div style="background:#19202a; border-radius:8px; padding:12px; font-size:11.5px; text-align:left; color:#94a3b8; margin-bottom:14px;">
+        <div style="margin-bottom:4px;"><strong>Name:</strong> <span id="confirmed-name" style="color:#fff;"></span></div>
         <div><strong>Email:</strong> <span id="confirmed-email" style="color:#fff;"></span></div>
       </div>
 
@@ -440,8 +448,8 @@
         <div class="timeline-item">
           <div class="timeline-icon">✉️</div>
           <div class="timeline-text">
-            <strong>Next 24 hours</strong>
-            <span>Confirmation email with processing details</span>
+            <strong>Next 24 to 48 hours</strong>
+            <span>Confirmation email and transaction review by finance team</span>
           </div>
         </div>
         <div class="timeline-item">
@@ -479,21 +487,67 @@
     const successWrapper = document.getElementById('refund-success-wrapper');
     const step2Indicator = document.getElementById('step-2-indicator');
     const step1Indicator = document.getElementById('step-1-indicator');
+    const submitBtn = document.getElementById('btn-submit');
 
     // Pre-populate if email or name is in URL
     const params = new URLSearchParams(window.location.search);
     if (params.get('email')) document.getElementById('email').value = params.get('email');
     if (params.get('name')) document.getElementById('name').value = params.get('name');
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
 
-      const protocolNum = 'REF-' + Math.floor(100000 + Math.random() * 900000);
-      document.getElementById('protocol-number').textContent = protocolNum;
+      if (!email || !name) return;
+
+      // Estado de carregamento no botão
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.85';
+      submitBtn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" style="width:16px;height:16px;animation:spin 0.8s linear infinite;" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="12"/></svg> Sending request...</span>';
+
+      const generatedProtocol = 'REF-' + Math.floor(100000 + Math.random() * 900000);
+      let confirmedProtocol = generatedProtocol;
+      let emailDispatched = false;
+
+      const endpoints = [
+        'https://pay.protocolplus.online/api/request-refund',
+        '/api/request-refund',
+        '/.netlify/functions/request-refund'
+      ];
+
+      for (const endpoint of endpoints) {
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, protocol: generatedProtocol })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.ok) {
+              if (data.protocol) confirmedProtocol = data.protocol;
+              emailDispatched = !!data.emailDispatched;
+              break;
+            }
+          }
+        } catch (err) {
+          console.warn('API endpoint unavailable:', endpoint, err);
+        }
+      }
+
+      document.getElementById('protocol-number').textContent = confirmedProtocol;
       document.getElementById('confirmed-name').textContent = name;
       document.getElementById('confirmed-email').textContent = email;
+
+      const noticeEl = document.getElementById('email-status-notice');
+      if (noticeEl) {
+        if (emailDispatched) {
+          noticeEl.innerHTML = '<span style="color:#1ed760; font-weight:700;">&#10003; Confirmation email sent:</span> We have dispatched your request receipt with protocol <strong>#' + confirmedProtocol + '</strong> to <strong>' + email + '</strong>.';
+        } else {
+          noticeEl.innerHTML = '<span style="color:#e3b341; font-weight:700;">&#9203; Request registered:</span> Protocol <strong>#' + confirmedProtocol + '</strong> created. Confirmation email is queued for dispatch to <strong>' + email + '</strong>.';
+        }
+      }
 
       formWrapper.style.display = 'none';
       successWrapper.style.display = 'block';

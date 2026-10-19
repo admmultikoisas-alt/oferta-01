@@ -1,5 +1,6 @@
 [build]
   publish = "public"
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/"
@@ -76,5 +77,11 @@
 [[redirects]]
   from = "/w"
   to = "/w/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/request-refund"
+  to = "/.netlify/functions/request-refund"
   status = 200
   force = true
