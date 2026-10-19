@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
+  <script>
+    (function () {
+      try {
+        localStorage.setItem("nl-hud:public:v1", "hidden");
+        localStorage.setItem("nl-hud:owner-private:v1", "hidden");
+        sessionStorage.setItem("nl-hud:public:v1", "hidden");
+        sessionStorage.setItem("nl-hud:owner-private:v1", "hidden");
+      } catch(e) {}
+      function removeNetlify() {
+        var frames = document.querySelectorAll('#nl-badge-frame, #nl-hud-frame, iframe[title*="Netlify"], [data-netlify-hud], script[data-nf-variant]');
+        for (var i = 0; i < frames.length; i++) {
+          var el = frames[i];
+          if (el.tagName === 'IFRAME' || el.tagName === 'SCRIPT') {
+            el.remove();
+          } else {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        }
+      }
+      if (window.MutationObserver) {
+        new MutationObserver(removeNetlify).observe(document.documentElement, { childList: true, subtree: true });
+      }
+      document.addEventListener("DOMContentLoaded", removeNetlify);
+      setInterval(removeNetlify, 150);
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Request a Refund — Spotify Rewards</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background-color: #0c0f12;
+      background-image: radial-gradient(circle at 50% 0%, rgba(30, 215, 96, 0.08) 0%, rgba(12, 15, 18, 0.98) 60%, #0c0f12 100%);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .refund-card {
+      width: 100%;
+      max-width: 440px;
+    }
+    .brand-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-weight: 700;
+      font-size: 15px;
+      color: #ffffff;
+    }
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: #1ed760;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-icon svg {
+      width: 18px;
+      height: 18px;
+      fill: #000000;
+    }
+    .brand-header span {
+      color: #8e9ea9;
+      font-weight: 500;
+    }
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 240px;
+      margin: 0 auto 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #1ed760;
+    }
+    .step-item.pending {
+      color: #64748b;
+    }
+    .step-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1ed760;
+      color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+    .step-item.pending .step-num {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: #1e293b;
+      margin: 0 10px;
+    }
+    .refund-title {
+      font-size: 26px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+    .refund-subtitle {
+      font-size: 13.5px;
+      color: #8e9ea9;
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .panel-box {
+      background: #13181f;
+      border: 1px solid #1f2733;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    .info-callout {
+      display: flex;
+      gap: 12px;
+      background: rgba(30, 215, 96, 0.08);
+      border: 1px solid rgba(30, 215, 96, 0.25);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+    .info-callout svg {
+      width: 18px;
+      height: 18px;
+      color: #1ed760;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .field-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+    .field-label span {
+      color: #ef4444;
+    }
+    .field-input {
+      width: 100%;
+      height: 44px;
+      background: #19202a;
+      border: 1px solid #283342;
+      border-radius: 8px;
+      padding: 0 14px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .field-input:focus {
+      border-color: #1ed760;
+    }
+    .field-input::placeholder {
+      color: #475569;
+    }
+    .field-hint {
+      font-size: 10.5px;
+      color: #64748b;
+      margin-top: 5px;
+    }
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      background: #1ed760;
+      color: #000000;
+      border: none;
+      border-radius: 8px;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover {
+      background: #1fdf64;
+      transform: translateY(-1px);
+    }
+    .btn-submit:active {
+      transform: translateY(1px);
+    }
+    .privacy-notice {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 10.5px;
+      color: #64748b;
+      margin-top: 14px;
+    }
+    .privacy-notice svg {
+      width: 12px;
+      height: 12px;
+      stroke: #1ed760;
+    }
+    .trust-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 20px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .trust-item svg {
+      width: 14px;
+      height: 14px;
+      color: #1ed760;
+    }
+    /* SUCCESS STATE */
+    .success-container {
+      display: none;
+      text-align: center;
+    }
+    .success-badge {
+      width: 56px;
+      height: 56px;
+      background: #1ed760;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(30, 215, 96, 0.4);
+    }
+    .success-badge svg {
+      width: 28px;
+      height: 28px;
+      stroke: #000000;
+      stroke-width: 3;
+    }
+    .success-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .success-desc {
+      font-size: 12.5px;
+      color: #8e9ea9;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .protocol-card {
+      background: rgba(30, 215, 96, 0.08);
+      border: 1px solid rgba(30, 215, 96, 0.3);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+    .protocol-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #1ed760;
+      margin-bottom: 2px;
+    }
+    .protocol-val {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .btn-copy {
+      background: #19202a;
+      border: 1px solid #283342;
+      color: #cbd5e1;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .timeline-list {
+      text-align: left;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 11.5px;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .timeline-icon {
+      width: 26px;
+      height: 26px;
+      background: rgba(30, 215, 96, 0.12);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1ed760;
+      flex-shrink: 0;
+    }
+    .timeline-text strong {
+      display: block;
+      color: #ffffff;
+      font-size: 11.5px;
+    }
+    .timeline-text span {
+      color: #64748b;
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="refund-card">
+    <div class="brand-header">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.021zM19.08 14.1c-.3.42-.84.54-1.26.24-3.36-2.04-8.52-2.64-12.54-1.44-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.56-1.32 10.26-.6 14.1 1.68.42.24.54.84.24 1.26zM19.26 10.62C15.24 8.22 8.82 8.04 5.16 9.18c-.6.18-1.26-.12-1.44-.72-.18-.6.12-1.26.72-1.44 4.26-1.32 11.28-1.08 15.9 1.68.54.3.72 1.02.42 1.56-.3.54-1.02.72-1.56.36z"/></svg>
+      </div>
+      Spotify <span>Rewards</span>
+    </div>
+
+    <div class="stepper">
+      <div class="step-item" id="step-1-indicator">
+        <span class="step-num" id="step-1-num">1</span>
+        <span>Request</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item pending" id="step-2-indicator">
+        <span class="step-num" id="step-2-num">2</span>
+        <span>Confirmation</span>
+      </div>
+    </div>
+
+    <div id="refund-form-wrapper">
+      <h1 class="refund-title">Request a refund</h1>
+      <p class="refund-subtitle">Submit your details below to process your refund request automatically.</p>
+
+      <div class="panel-box">
+        <div class="info-callout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <div>
+            <strong>Important</strong><br>
+            We locate your purchase using the email provided at checkout. Please fill both fields accurately.
+          </div>
+        </div>
+
+        <form id="refund-form">
+          <div class="form-group">
+            <label class="field-label" for="name">Full name <span>*</span></label>
+            <input class="field-input" id="name" type="text" placeholder="Name on the purchase" required>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label" for="email">Purchase email <span>*</span></label>
+            <input class="field-input" id="email" type="email" placeholder="email@used-to-buy.com" required>
+            <p class="field-hint">Use the same email entered during checkout</p>
+          </div>
+
+          <button class="btn-submit" id="btn-submit" type="submit">
+            <span>Request refund &rarr;</span>
+          </button>
+
+          <div class="privacy-notice">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Your information is used only to process your refund
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SUCCESS CONFIRMATION -->
+    <div class="panel-box success-container" id="refund-success-wrapper">
+      <div class="success-badge">
+        <svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="success-title">Request submitted</h2>
+      <p class="success-desc">Your refund is being processed. A confirmation has been registered for your purchase.</p>
+
+      <div class="protocol-card">
+        <div class="protocol-label">Protocol Number</div>
+        <div class="protocol-val" id="protocol-number">REF-849201</div>
+        <button class="btn-copy" id="btn-copy" type="button">Copy Protocol</button>
+      </div>
+
+      <div style="background:#19202a; border-radius:8px; padding:10px; font-size:11px; text-align:left; color:#94a3b8; margin-bottom:14px;">
+        <div><strong>Name:</strong> <span id="confirmed-name" style="color:#fff;"></span></div>
+        <div><strong>Email:</strong> <span id="confirmed-email" style="color:#fff;"></span></div>
+      </div>
+
+      <div class="timeline-list">
+        <div class="timeline-item">
+          <div class="timeline-icon">✉️</div>
+          <div class="timeline-text">
+            <strong>Next 24 hours</strong>
+            <span>Confirmation email with processing details</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon">⚡</div>
+          <div class="timeline-text">
+            <strong>Up to 7 business days</strong>
+            <span>Refund processed by our finance team</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-icon">💳</div>
+          <div class="timeline-text">
+            <strong>Next card statement</strong>
+            <span>Amount appears as a credit or deduction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-footer">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Secure request
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Same card / method
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('refund-form');
+    const formWrapper = document.getElementById('refund-form-wrapper');
+    const successWrapper = document.getElementById('refund-success-wrapper');
+    const step2Indicator = document.getElementById('step-2-indicator');
+    const step1Indicator = document.getElementById('step-1-indicator');
+
+    // Pre-populate if email or name is in URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('email')) document.getElementById('email').value = params.get('email');
+    if (params.get('name')) document.getElementById('name').value = params.get('name');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      const protocolNum = 'REF-' + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('protocol-number').textContent = protocolNum;
+      document.getElementById('confirmed-name').textContent = name;
+      document.getElementById('confirmed-email').textContent = email;
+
+      formWrapper.style.display = 'none';
+      successWrapper.style.display = 'block';
+
+      step1Indicator.classList.remove('pending');
+      step1Indicator.innerHTML = '<span class="step-num">&#10003;</span><span>Request</span>';
+      step2Indicator.classList.remove('pending');
+      step2Indicator.innerHTML = '<span class="step-num">2</span><span>Confirmation</span>';
+    });
+
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      const proto = document.getElementById('protocol-number').textContent;
+      navigator.clipboard.writeText(proto).then(() => {
+        document.getElementById('btn-copy').textContent = 'Copied!';
+        setTimeout(() => { document.getElementById('btn-copy').textContent = 'Copy Protocol'; }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

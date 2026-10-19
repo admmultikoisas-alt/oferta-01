@@ -50,6 +50,30 @@
   force = true
 
 [[redirects]]
+  from = "/refund"
+  to = "/sp/refund/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/refund/index.html"
+  to = "/sp/refund/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/reembolso"
+  to = "/sp/refund/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/refound"
+  to = "/sp/refund/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/w"
   to = "/w/index.html"
   status = 200
