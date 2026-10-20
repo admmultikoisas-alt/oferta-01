@@ -55,7 +55,11 @@ function getCurrentDate() {
 }
 
 function loadUserData() {
-    currentUser = localStorage.getItem('currentUser') || 'User';
+    currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+        window.location.href = 'index.html';
+        return false;
+    }
     const users = JSON.parse(localStorage.getItem('users')) || {};
     if (!users[currentUser]) {
         users[currentUser] = {

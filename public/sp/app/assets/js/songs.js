@@ -3,7 +3,7 @@
 window.localSongs = [
     { src: 'assets/audio/song1.mp3', title: 'good 4 u', artist: 'Olivia Rodrigo' },
     { src: 'assets/audio/song2.mp3', title: 'Blinding Lights', artist: 'The Weeknd' },
-    { src: 'assets/audio/song3.mp3', title: 'Blinding Lights', artist: 'The Weeknd' },
+    { src: 'assets/audio/song3.mp3', title: 'Shape of You', artist: 'Ed Sheeran' },
     { src: 'assets/audio/song4.mp3', title: 'Levitating', artist: 'Dua Lipa' },
     { src: 'assets/audio/song5.mp3', title: 'Stay', artist: 'The Kid LAROI & Justin Bieber' },
     { src: 'assets/audio/song6.mp3', title: 'Peaches', artist: 'Justin Bieber' },

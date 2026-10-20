@@ -1,62 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
-  <script>
-    (function () {
-      try {
-        localStorage.setItem("nl-hud:public:v1", "hidden");
-        localStorage.setItem("nl-hud:owner-private:v1", "hidden");
-        sessionStorage.setItem("nl-hud:public:v1", "hidden");
-        sessionStorage.setItem("nl-hud:owner-private:v1", "hidden");
-      } catch(e) {}
-      try {
-        var origQS = Document.prototype.querySelector;
-        Document.prototype.querySelector = function (sel) {
-          if (typeof sel === 'string' && sel.indexOf('data-nf-variant') !== -1) return null;
-          return origQS.apply(this, arguments);
-        };
-      } catch(e) {}
-      function removeNetlify() {
-        var frames = document.querySelectorAll('#nl-badge-frame, #nl-hud-frame, iframe[title*="Netlify"], iframe[id*="nl-"], [data-netlify-hud], script[data-nf-variant]');
-        for (var i = 0; i < frames.length; i++) {
-          var el = frames[i];
-          if (el.tagName === 'IFRAME' || el.tagName === 'SCRIPT') {
-            el.remove();
-          } else {
-            el.style.setProperty('display', 'none', 'important');
-            el.style.setProperty('visibility', 'hidden', 'important');
-          }
-        }
-      }
-      if (window.MutationObserver) {
-        new MutationObserver(removeNetlify).observe(document.documentElement, { childList: true, subtree: true });
-      }
-      document.addEventListener("DOMContentLoaded", removeNetlify);
-      window.addEventListener("load", removeNetlify);
-      setInterval(removeNetlify, 150);
-    })();
-  </script>
-  <style>
-    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], iframe[title*="Powered by Netlify"], [data-netlify-hud], .netlify-badge {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-      width: 0 !important;
-      height: 0 !important;
-      position: absolute !important;
-      top: -9999px !important;
-      left: -9999px !important;
-      z-index: -999999 !important;
-      clip-path: path("M0 0Z") !important;
-    }
-  </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receipt - Spotify Rewards</title>
-    
-    
+    <!-- Meta Pixel -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '4472134583045790');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=4472134583045790&ev=PageView&noscript=1"
+    /></noscript>
     <!-- Importa a fonte Inter para o design premium e Dancing Script para a assinatura -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -282,11 +245,8 @@
             fill: #fff;
         }
     </style>
-
 </head>
 <body>
-  <div id="nl-badge-frame" style="display:none!important;visibility:hidden!important;"></div>
-  <div id="nl-hud-frame" style="display:none!important;visibility:hidden!important;"></div>
 
 <div class="invoice-container">
     <!-- Header Fatura -->
