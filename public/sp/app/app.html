@@ -894,27 +894,133 @@
     }
     .suporte-success-btn:hover { background: #2a2a2a; }
 
-    /* ─── FAQ ACCORDION ───────────────────────────── */
+    /* ─── SUPPORT PAGE & EXPERIENCE ───────────────── */
+    #pageSupport .suporte-hero { text-align: center; margin-bottom: 20px; }
+    #pageSupport .suporte-kicker {
+      display: inline-block; background: rgba(30, 215, 96, 0.12);
+      border: 1px solid rgba(30, 215, 96, 0.3); color: #1ed760;
+      font-size: 11px; font-weight: 800; letter-spacing: 0.8px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 8px;
+    }
+    #pageSupport .suporte-title { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -0.5px; margin: 0 0 4px; }
+    #pageSupport .suporte-subtitle { font-size: 14px; color: #a0a0a0; margin: 0; }
+
+    /* Support Navigation Tabs */
+    .support-tabs {
+      display: flex !important; gap: 6px !important; background: #141414 !important;
+      padding: 5px !important; border-radius: 12px !important; border: 1px solid #242424 !important;
+      margin-bottom: 20px !important;
+    }
+    .support-tab {
+      flex: 1 !important; min-height: 40px !important; background: transparent !important;
+      border: none !important; border-radius: 8px !important; color: #a0a0a0 !important;
+      font-family: inherit !important; font-size: 13px !important; font-weight: 700 !important;
+      cursor: pointer !important; padding: 8px 12px !important; display: flex !important;
+      align-items: center !important; justify-content: center !important; text-align: center !important;
+      transition: all 0.15s ease !important; -webkit-appearance: none !important; appearance: none !important;
+    }
+    .support-tab:hover { color: #ffffff !important; background: rgba(255, 255, 255, 0.05) !important; }
+    .support-tab[aria-selected="true"] {
+      background: #282828 !important; color: #ffffff !important; box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+    }
+
+    /* Support Refund CTA Banner */
+    .support-refund {
+      display: flex !important; align-items: center !important; justify-content: space-between !important;
+      gap: 14px !important; flex-wrap: wrap !important;
+      background: linear-gradient(135deg, #181818 0%, #1e1e1e 100%) !important;
+      border: 1px solid #2c2c2c !important; border-radius: 14px !important;
+      padding: 18px 20px !important; margin-bottom: 22px !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+    }
+    .support-refund-copy { flex: 1 !important; min-width: 200px !important; }
+    .support-refund-title { font-size: 16px !important; font-weight: 800 !important; color: #ffffff !important; margin: 0 0 4px 0 !important; }
+    .support-refund-text { font-size: 13px !important; color: #a0a0a0 !important; line-height: 1.45 !important; margin: 0 !important; }
+    .support-refund-btn {
+      background: #1ed760 !important; color: #000000 !important; border: none !important;
+      border-radius: 500px !important; padding: 11px 22px !important; font-family: inherit !important;
+      font-size: 13.5px !important; font-weight: 800 !important; cursor: pointer !important;
+      white-space: nowrap !important; transition: transform 0.15s ease, background 0.15s ease !important;
+      box-shadow: 0 3px 12px rgba(30, 215, 96, 0.35) !important; -webkit-appearance: none !important; appearance: none !important;
+    }
+    .support-refund-btn:hover { background: #1fdf64 !important; transform: scale(1.02) !important; }
+
+    /* Support Search Input */
+    .support-search {
+      display: flex !important; align-items: center !important; gap: 12px !important;
+      background: #181818 !important; border: 1px solid #282828 !important; border-radius: 12px !important;
+      padding: 0 16px !important; margin-bottom: 22px !important; cursor: text !important; box-sizing: border-box !important;
+    }
+    .support-search:focus-within { border-color: #1ed760 !important; box-shadow: 0 0 0 2px rgba(30, 215, 96, 0.15) !important; }
+    .support-search svg { flex-shrink: 0 !important; color: #888888 !important; stroke: #888888 !important; }
+    .support-search input {
+      flex: 1 !important; width: 100% !important; background: transparent !important;
+      border: none !important; outline: none !important; padding: 13px 0 !important;
+      color: #ffffff !important; font-family: inherit !important; font-size: 14px !important;
+      -webkit-appearance: none !important; appearance: none !important; box-sizing: border-box !important;
+    }
+    .support-search input::placeholder { color: #666666 !important; }
+
+    /* ─── FAQ ACCORDION (CRISP HIGH CONTRAST) ──────── */
     .faq-title {
-      font-size: 16px; font-weight: 800; color: #fff; margin: 12px 0 12px; text-align: left;
-      display: flex; align-items: center; justify-content: space-between;
+      font-size: 17px !important; font-weight: 800 !important; color: #ffffff !important;
+      margin: 18px 0 12px 0 !important; text-align: left !important;
+      display: flex !important; align-items: center !important; justify-content: space-between !important;
+      letter-spacing: -0.2px !important;
     }
-    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .faq-list { display: flex !important; flex-direction: column !important; gap: 9px !important; margin-bottom: 24px !important; }
     .faq-item {
-      background: #141414; border-radius: 12px; overflow: hidden;
-      border: 1px solid #242424; transition: border-color 0.2s, background 0.2s;
+      background: #181818 !important; border-radius: 12px !important; overflow: hidden !important;
+      border: 1px solid #282828 !important; transition: all 0.2s ease !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
     }
-    .faq-item.active { border-color: rgba(29, 185, 84, 0.4); background: #161616; }
+    .faq-item:hover { border-color: #383838 !important; background: #1e1e1e !important; }
+    .faq-item.active { border-color: #1ed760 !important; background: #181818 !important; box-shadow: 0 4px 16px rgba(0,0,0,0.35) !important; }
     .faq-question {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 16px; cursor: pointer; gap: 10px;
+      width: 100% !important; min-height: 52px !important; display: flex !important;
+      align-items: center !important; justify-content: space-between !important;
+      padding: 15px 18px !important; cursor: pointer !important; gap: 12px !important;
+      background: transparent !important; background-color: transparent !important;
+      border: none !important; color: #ffffff !important; font-family: inherit !important;
+      font-size: 14.5px !important; font-weight: 700 !important; text-align: left !important;
+      outline: none !important; transition: background 0.15s ease, color 0.15s ease !important;
+      -webkit-appearance: none !important; appearance: none !important; box-sizing: border-box !important;
     }
-    .faq-question span { font-size: 13.5px; font-weight: 700; color: #e5e5e5; flex: 1; }
-    .faq-chevron { flex-shrink: 0; transition: transform 0.25s ease; color: #777; }
-    .faq-item.active .faq-chevron { transform: rotate(180deg); color: var(--sp-green); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .faq-item.active .faq-answer { max-height: 320px; }
-    .faq-answer p { padding: 0 16px 14px; font-size: 13px; color: #9a9a9a; line-height: 1.5; }
+    .faq-question:hover { background: rgba(255, 255, 255, 0.03) !important; }
+    .faq-question span {
+      flex: 1 !important; color: #ffffff !important; font-size: 14.5px !important;
+      font-weight: 700 !important; line-height: 1.4 !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+    }
+    .faq-item.active .faq-question span { color: #1ed760 !important; }
+    .faq-chevron {
+      flex-shrink: 0 !important; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease !important;
+      color: #a0a0a0 !important; stroke: #a0a0a0 !important;
+    }
+    .faq-item.active .faq-chevron { transform: rotate(180deg) !important; color: #1ed760 !important; stroke: #1ed760 !important; }
+    .faq-answer {
+      max-height: 0 !important; overflow: hidden !important;
+      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      background: #121212 !important; border-top: 1px solid transparent !important;
+    }
+    .faq-item.active .faq-answer { max-height: 380px !important; border-top: 1px solid #222222 !important; }
+    .faq-answer p {
+      padding: 14px 18px 16px !important; margin: 0 !important;
+      font-size: 13.5px !important; color: #cccccc !important; line-height: 1.6 !important;
+    }
+    .faq-answer p strong, .faq-answer p b { color: #ffffff !important; }
+
+    /* Support Links & Utilities */
+    .support-inline-link {
+      display: inline-flex !important; align-items: center !important; gap: 4px !important;
+      background: transparent !important; border: none !important; color: #1ed760 !important;
+      font-family: inherit !important; font-size: 13.5px !important; font-weight: 700 !important;
+      cursor: pointer !important; padding: 8px 0 !important; text-decoration: underline !important;
+      text-underline-offset: 3px !important; transition: opacity 0.15s ease !important;
+      -webkit-appearance: none !important; appearance: none !important;
+    }
+    .support-inline-link:hover { opacity: 0.85 !important; }
+    .support-empty { font-size: 13.5px !important; line-height: 1.6 !important; color: #999999 !important; margin: 16px 0 !important; text-align: center !important; }
 
     /* ─── MODALS & SHEETS ─────────────────────────── */
     .sp-modal {
@@ -2304,7 +2410,7 @@
     }
 
   </style>
-  <link rel="stylesheet" href="assets/css/support-experience.css">
+  <link rel="stylesheet" href="/sp/app/assets/css/support-experience.css">
 </head>
 <body>
 
@@ -3286,11 +3392,11 @@
 
   <!-- AUDIO ELEMENTS -->
   <audio id="rewardSound" preload="auto">
-    <source src="../songs/reward.mp3" type="audio/mpeg">
-    <source src="assets/audio/ping.wav" type="audio/wav">
+    <source src="/sp/app/assets/audio/ping.wav" type="audio/wav">
+    <source src="/sp/songs/reward.mp3" type="audio/mpeg">
   </audio>
   <audio id="notifSound" preload="auto">
-    <source src="assets/audio/iphone_short_cropped.m4a" type="audio/mp4">
+    <source src="/sp/app/assets/audio/iphone_short_cropped.m4a" type="audio/mp4">
   </audio>
 
   <!-- BOTTOM NAVIGATION -->
@@ -5680,9 +5786,56 @@
       if (r.data && r.data.session) startSession(r.data.session.user);
     });
   })();
+
+  // Support Tab Navigation & Search Filter
+  (function () {
+    window.spSupportView = function (view) {
+      ['help', 'contact', 'requests'].forEach(function (name) {
+        var panel = document.getElementById('supportPanel-' + name);
+        var tab = document.getElementById('supportTab-' + name);
+        if (panel) panel.hidden = name !== view;
+        if (tab) {
+          tab.setAttribute('aria-selected', String(name === view));
+          tab.tabIndex = name === view ? 0 : -1;
+        }
+      });
+      if (view === 'requests' && window.spLoadSupportRequests) window.spLoadSupportRequests();
+    };
+
+    function initSupportListeners() {
+      var tabs = Array.from(document.querySelectorAll('.support-tab'));
+      tabs.forEach(function (tab, index) {
+        tab.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          var next = tabs[(index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length];
+          if (next) { next.click(); next.focus(); }
+        });
+      });
+      var searchInput = document.getElementById('supportSearch');
+      if (searchInput) {
+        searchInput.addEventListener('input', function (event) {
+          var query = (event.target.value || '').trim().toLowerCase();
+          var matches = 0;
+          document.querySelectorAll('#faqList .faq-item').forEach(function (item) {
+            var match = !query || item.textContent.toLowerCase().indexOf(query) !== -1;
+            item.hidden = !match;
+            if (match) matches++;
+          });
+          var noResults = document.getElementById('supportNoResults');
+          if (noResults) noResults.hidden = matches > 0;
+        });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSupportListeners);
+    } else {
+      initSupportListeners();
+    }
+  })();
   </script>
   
-  <script src="assets/js/support-experience.js"></script>
+  <script src="/sp/app/assets/js/support-experience.js"></script>
 
   <!-- VIDEO PLAYER MODAL FOR CLASSES -->
   <div class="class-modal-backdrop" id="classVideoModal" onclick="handleClassModalBackdrop(event)">

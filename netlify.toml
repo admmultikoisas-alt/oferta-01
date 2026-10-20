@@ -75,6 +75,12 @@
   force = true
 
 [[redirects]]
+  from = "/assets/*"
+  to = "/sp/app/assets/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/w"
   to = "/w/index.html"
   status = 200
