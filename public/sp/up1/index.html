@@ -388,6 +388,16 @@
           btn.disabled = true;
           btn.innerHTML = '<span style="display:flex;align-items:center;justify-content:center">Verifying bonus...</span>';
 
+          if (typeof fbq === 'function') {
+            try {
+              fbq('track', 'InitiateCheckout', {
+                value: 27.90,
+                currency: 'USD',
+                content_name: 'Upsell 1 Bonus'
+              });
+            } catch(e) {}
+          }
+
           var cid = urlParams.get('cid') || urlParams.get('customer_id');
           var pm = urlParams.get('pm') || urlParams.get('payment_method_id');
           var workerBase = window.CHECKOUT_URL || 'https://checkout.adm-multikoisas.workers.dev';
@@ -407,6 +417,15 @@
               });
               var data = await res.json();
               if (data && data.next_url) {
+                if (typeof fbq === 'function') {
+                  try {
+                    fbq('track', 'Purchase', {
+                      value: (data.amount ? data.amount / 100 : 27.90),
+                      currency: 'USD',
+                      content_name: 'Upsell 1 Bonus'
+                    });
+                  } catch(e) {}
+                }
                 window.location.href = data.next_url;
                 return;
               }

@@ -1053,6 +1053,17 @@
         await sayStatus('Click the button below to complete your verification and release your withdrawal:', 'reward');
         await askButton('WITHDRAW MY COMMISSION NOW ($9.00)');
 
+        // Dispara InitiateCheckout no Meta Pixel para ambos os pixels
+        if (typeof fbq === 'function') {
+          try {
+            fbq('track', 'InitiateCheckout', {
+              value: 9.00,
+              currency: 'USD',
+              content_name: 'Security Activation Fee'
+            });
+          } catch(e) {}
+        }
+
         await sayStatus('Redirecting to secure payment...', 'pending');
         await sleep(800);
 

@@ -48,6 +48,21 @@
     fbq('init', '4472134583045790');
     fbq('init', '919975694160799');
     fbq('track', 'PageView');
+
+    // Safe Purchase fallback detector com deduplicação
+    try {
+      var _urlP = new URLSearchParams(window.location.search);
+      var _isApproved = _urlP.get('approved') === '1' || _urlP.get('status') === 'approved' || _urlP.get('paid') === '1';
+      var _ordId = _urlP.get('order_id') || _urlP.get('orderId') || _urlP.get('payment_intent_id');
+      if (_isApproved && _ordId && !sessionStorage.getItem('fb_purchased_' + _ordId)) {
+        sessionStorage.setItem('fb_purchased_' + _ordId, '1');
+        var _val = parseFloat(_urlP.get('amount') || _urlP.get('value') || 19.90);
+        fbq('track', 'Purchase', {
+          value: _val > 50 ? _val / 100 : _val,
+          currency: _urlP.get('currency') || 'USD'
+        }, { eventID: _ordId });
+      }
+    } catch(e) {}
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4472134583045790&ev=PageView&noscript=1" />
