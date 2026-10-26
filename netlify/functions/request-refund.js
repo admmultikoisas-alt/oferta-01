@@ -39,7 +39,7 @@ export default async (req, context) => {
     const resendApiKey = process.env.RESEND_API_KEY || '';
     if (resendApiKey && resendApiKey.startsWith('re_') && resendApiKey !== 're_SUA_CHAVE_API_RESEND_AQUI') {
       try {
-        const senderFrom = process.env.RESEND_FROM_REFUND || process.env.RESEND_FROM || 'Spotify Rewards <suporte@protocolplus.online>';
+        const senderFrom = process.env.RESEND_FROM_REFUND || process.env.RESEND_FROM || 'Spotify Rewards <suporte@spotmove.shop>';
         const emailRes = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: {
