@@ -737,6 +737,9 @@ export default {
     const isCheckoutHost = host.startsWith('pay.') || host.includes('checkout');
     if (!isCheckoutHost && !url.pathname.startsWith('/api/')) {
       if (env && env.ASSETS) {
+        if (url.pathname === '/' || url.pathname === '/sp/type' || url.pathname === '/sp/type/') {
+          return env.ASSETS.fetch(new Request(new URL('/sp/type/index.html', request.url), request));
+        }
         return env.ASSETS.fetch(request);
       }
     }
