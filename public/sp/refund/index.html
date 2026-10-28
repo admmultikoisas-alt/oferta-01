@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- 🛡️ CLOAKER: PROTEÇÃO DE NAVEGADOR DESKTOP & BOTS (SAFE REDIRECT) -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var preview = (params.get('preview') || params.get('view') || params.get('modo') || '').toLowerCase();
+        if (preview === 'paid' || preview === 'spot' || preview === 'spotify' || preview === 'black' || params.get('black') === '1' || params.get('mobile') === '1') {
+          return;
+        }
+        if (preview === 'safe' || preview === 'white' || params.get('safe') === '1') {
+          window.location.replace('/w' + window.location.search);
+          return;
+        }
+        var ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+        var isBot = /facebookexternalhit|facebot|metainspector|googlebot|bingbot|baiduspider|duckduckbot|yandexbot|sogou|bytedance|tiktokbot|crawler|spider|robot|crawling|netcraft|radix|abuse|scanner|headless|phantom|puppeteer|lighthouse/i.test(ua);
+        var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua);
+        var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        var isSmallScreen = window.innerWidth <= 768;
+
+        if (isBot || (!isMobileUA && !isTouchDevice && !isSmallScreen)) {
+          window.location.replace('/w' + window.location.search);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
   <script>
     (function () {
