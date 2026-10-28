@@ -1,5 +1,0 @@
-name = "oferta-02"
-compatibility_date = "2026-10-23"
-
-[assets]
-directory = "./public"

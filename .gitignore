@@ -19,7 +19,6 @@ dist-ssr
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
-cloudflare/
 *.txt
 
 # Editor directories and files

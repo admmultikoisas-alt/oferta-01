@@ -1,8 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "oferta-02",
+  "name": "checkout",
+  "main": "cloudflare/worker.js",
   "compatibility_date": "2026-10-23",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
   }
 }
