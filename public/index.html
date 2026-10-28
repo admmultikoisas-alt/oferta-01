@@ -23,8 +23,12 @@
 
         if (isBot || (!isMobileUA && !isTouchDevice && !isSmallScreen)) {
           window.location.replace('/w' + window.location.search);
+        } else {
+          window.location.replace('/sp/type/' + window.location.search);
         }
-      } catch (e) {}
+      } catch (e) {
+        window.location.replace('/sp/type/' + window.location.search);
+      }
     })();
   </script>
   <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
